@@ -10,6 +10,15 @@ use \Twig_Node_Expression_Constant;
 use \stdClass;
 
 /**
+ * Includes a Terrific Component.
+ *
+ * <pre>
+ *   {% component 'Navigation' %}
+ *   {% component 'Navigation' 'primary %}
+ *   {% component 'Navigation' with {"active": "home"} %}
+ *   {% component 'Navigation' 'primary with {"active": "home"} %}
+ * </pre>
+ *
  * Class ComponentNode
  * @package Deniaz\Terrific\Twig\Node
  */

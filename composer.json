@@ -1,6 +1,6 @@
 {
     "name": "deniaz/terrific-twig",
-    "description": "Adds a component tag to Twig analogue to the component handlebars helper in Splendid.",
+    "description": "Adds a component tag to Twig, analogue to the component handlebars helper in Splendid.",
     "type": "library",
     "keywords": ["terrific", "splendid", "twig"],
     "homepage": "https://github.com/deniaz/terrific-twig",
@@ -19,6 +19,7 @@
         }
     },
     "require": {
+        "php": ">=5.4",
         "twig/twig": "~1.18.0"
     }
 }
