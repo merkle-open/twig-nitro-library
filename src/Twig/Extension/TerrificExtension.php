@@ -9,10 +9,10 @@ use \Twig_Environment;
 use \Twig_Extension;
 
 /**
- * Class ComponentExtension
+ * Class TerrificExtension
  * @package Deniaz\Terrific\Twig\Extension
  */
-class ComponentExtension extends Twig_Extension
+class TerrificExtension extends Twig_Extension
 {
     /**
      * @var array Additional Template Paths
@@ -39,7 +39,7 @@ class ComponentExtension extends Twig_Extension
      */
     public function getName()
     {
-        return 'component';
+        return 'terrific';
     }
 
     /**
@@ -51,8 +51,8 @@ class ComponentExtension extends Twig_Extension
     {
         /** @var \Twig_Loader_Chain $currentLoader */
         $currentLoader = $environment->getLoader();
-        $splendidLoader = new Twig_Loader_Filesystem($this->paths);
-        $currentLoader->addLoader($splendidLoader);
+        $terrificLoader = new Twig_Loader_Filesystem($this->paths);
+        $currentLoader->addLoader($terrificLoader);
     }
 
     /**
