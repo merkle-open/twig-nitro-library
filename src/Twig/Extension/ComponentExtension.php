@@ -15,11 +15,6 @@ use \Twig_Extension;
 class ComponentExtension extends Twig_Extension
 {
     /**
-     * @var string Basepath
-     */
-    private $basePath;
-
-    /**
      * @var array Additional Template Paths
      */
     private $paths;
@@ -30,13 +25,11 @@ class ComponentExtension extends Twig_Extension
     private $fileExtension;
 
     /**
-     * @param        $basePath      Terrific Base Path
      * @param array  $paths         Additional Terrific Template Paths
      * @param string $fileExtension Twig Template File Extension
      */
-    public function __construct($basePath, $paths = [], $fileExtension = '.html.twig')
+    public function __construct($paths = [], $fileExtension = '.html.twig')
     {
-        $this->basePath = $basePath . '/';
         $this->paths = $paths;
         $this->fileExtension = $fileExtension;
     }
@@ -58,13 +51,7 @@ class ComponentExtension extends Twig_Extension
     {
         /** @var \Twig_Loader_Chain $currentLoader */
         $currentLoader = $environment->getLoader();
-        $components = $this->paths;
-        $splendidLoader = new Twig_Loader_Filesystem();
-
-        foreach ($components as $component) {
-            $splendidLoader->addPath($this->basePath . $component->path);
-        }
-
+        $splendidLoader = new Twig_Loader_Filesystem($this->paths);
         $currentLoader->addLoader($splendidLoader);
     }
 
