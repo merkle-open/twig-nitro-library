@@ -15,7 +15,7 @@
     "autoload": {
         "psr-4": {
             "Deniaz\\Terrific\\": "src/",
-            "Deniaz\\Test\\Terrific": "test/"
+            "Deniaz\\Test\\Terrific\\": "test/"
         }
     },
     "require": {
