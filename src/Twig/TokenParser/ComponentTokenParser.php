@@ -20,7 +20,7 @@ class ComponentTokenParser extends Twig_TokenParser
     /**
      * @param string $fileExtension Twig Template File Extension
      */
-    function __construct($fileExtension)
+    public function __construct($fileExtension)
     {
         $this->fileExtension = $fileExtension;
     }
