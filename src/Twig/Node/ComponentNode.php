@@ -24,19 +24,22 @@ use \stdClass;
  */
 class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
 {
-    private $config;
+    /**
+     * @var string Twig Template File Extension
+     */
+    private $fileExtension;
 
     /**
-     * @param stdClass             $config      Terrific Config
-     * @param Twig_Node_Expression $template    Template Node
-     * @param string               $variant     Template Variant
-     * @param array                $variables   Additional Variables to be injected
-     * @param int                  $lineno      Line Number
-     * @param null                 $tag         Twig Tag
+     * @param Twig_Node_Expression $template
+     * @param string               $fileExtension
+     * @param int                  $lineno
+     * @param null                 $variant
+     * @param null                 $variables
+     * @param null                 $tag
      */
-    public function __construct(stdClass $config, Twig_Node_Expression $template, $variant = null, $variables = null, $lineno, $tag = null)
+    public function __construct(Twig_Node_Expression $template, $fileExtension, $lineno, $variant = null, $variables = null, $tag = null)
     {
-        $this->config = $config;
+        $this->fileExtension = $fileExtension;
 
         parent::__construct(
             ['template' => $template],
@@ -109,7 +112,7 @@ class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
             ->getNode('template')
             ->setAttribute(
                 'value',
-                $template . '/' . strtolower($template) . strtolower($variant) . $this->config->micro->view_file_extension
+                $template . '/' . strtolower($template) . strtolower($variant) . $this->fileExtension
             );
     }
 }

@@ -12,11 +12,17 @@ use \Twig_TokenParser;
  */
 class ComponentTokenParser extends Twig_TokenParser
 {
-    private $config;
+    /**
+     * @var string Twig Template File Extension
+     */
+    private $fileExtension;
 
-    function __construct($config)
+    /**
+     * @param string $fileExtension Twig Template File Extension
+     */
+    function __construct($fileExtension)
     {
-        $this->config = $config;
+        $this->fileExtension = $fileExtension;
     }
 
     /**
@@ -24,9 +30,17 @@ class ComponentTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
-        $expr = $this->parser->getExpressionParser()->parseExpression();
+        $template = $this->parser->getExpressionParser()->parseExpression();
         list($variant, $variables) = $this->parseArguments();
-        return new ComponentNode($this->config, $expr, $variant, $variables, $token->getLine(), $this->getTag());
+
+        return new ComponentNode(
+            $template,
+            $this->fileExtension,
+            $token->getLine(),
+            $variant,
+            $variables,
+            $this->getTag()
+        );
     }
 
     /**

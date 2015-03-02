@@ -20,18 +20,25 @@ class ComponentExtension extends Twig_Extension
     private $basePath;
 
     /**
-     * @var array Terrific Config
+     * @var array Additional Template Paths
      */
-    private $config;
+    private $paths;
 
     /**
-     * @param      $basePath    Base path
-     * @param null $config      Terrific Config
+     * @var string Twig Template File Extension
      */
-    public function __construct($basePath, $config = null)
+    private $fileExtension;
+
+    /**
+     * @param        $basePath      Terrific Base Path
+     * @param array  $paths         Additional Terrific Template Paths
+     * @param string $fileExtension Twig Template File Extension
+     */
+    public function __construct($basePath, $paths = [], $fileExtension = '.html.twig')
     {
         $this->basePath = $basePath . '/';
-        $this->config = $config;
+        $this->paths = $paths;
+        $this->fileExtension = $fileExtension;
     }
 
     /**
@@ -43,7 +50,7 @@ class ComponentExtension extends Twig_Extension
     }
 
     /**
-     * Adds new Filesystem Loaders to the Twig Environment based on the Terrific Config File.
+     * Adds new Filesystem Loader to the Twig Environment.
      *
      * @param Twig_Environment $environment The current Twig_Environment instance
      */
@@ -51,7 +58,7 @@ class ComponentExtension extends Twig_Extension
     {
         /** @var \Twig_Loader_Chain $currentLoader */
         $currentLoader = $environment->getLoader();
-        $components = $this->config->micro->components;
+        $components = $this->paths;
         $splendidLoader = new Twig_Loader_Filesystem();
 
         foreach ($components as $component) {
@@ -67,7 +74,7 @@ class ComponentExtension extends Twig_Extension
     public function getTokenParsers()
     {
         return [
-            new ComponentTokenParser($this->config)
+            new ComponentTokenParser($this->fileExtension)
         ];
     }
 }
