@@ -1,0 +1,24 @@
+{
+    "name": "deniaz/terrific-twig",
+    "description": "Adds a component tag to Twig analogue to the component handlebars helper in Splendid.",
+    "type": "library",
+    "keywords": ["terrific", "splendid", "twig"],
+    "homepage": "https://github.com/deniaz/terrific-twig",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Robert Vogt",
+            "email": "robert.vogt@namics.com",
+            "homepage": "https://github.com/deniaz"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Deniaz\\Terrific\\": "src/",
+            "Deniaz\\Test\\Terrific": "test/"
+        }
+    },
+    "require": {
+        "twig/twig": "~1.18.0"
+    }
+}
