@@ -10,7 +10,7 @@ use \Twig_TokenParser;
  * Class ComponentTokenParser
  * @package Deniaz\Terrific\Twig\TokenParser
  */
-class ComponentTokenParser extends Twig_TokenParser
+final class ComponentTokenParser extends Twig_TokenParser
 {
     /**
      * @var string Twig Template File Extension
@@ -30,17 +30,10 @@ class ComponentTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
-        $template = $this->parser->getExpressionParser()->parseExpression();
-        list($variant, $variables) = $this->parseArguments();
+        $component = $this->parser->getExpressionParser()->parseExpression();
+        list($data, $only) = $this->parseArguments();
 
-        return new ComponentNode(
-            $template,
-            $this->fileExtension,
-            $token->getLine(),
-            $variant,
-            $variables,
-            $this->getTag()
-        );
+        return new ComponentNode($component, $data, $only, $token->getLine(), $this->getTag());
     }
 
     /**
@@ -51,18 +44,19 @@ class ComponentTokenParser extends Twig_TokenParser
     {
         $stream = $this->parser->getStream();
 
-        $variant = null;
-        if ($stream->test(Twig_Token::STRING_TYPE)) {
-            $variant = $stream->expect(Twig_Token::STRING_TYPE)->getValue();
+        $data = null;
+        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'with')) {
+            $data = $this->parser->getExpressionParser()->parseExpression();
         }
 
-        $variables = null;
-        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'with')) {
-            $variables = $this->parser->getExpressionParser()->parseExpression();
+        $only = false;
+        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'only')) {
+            $only = true;
         }
 
         $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        return [$variant, $variables];
+
+        return [ $data, $only ];
     }
 
     /**
