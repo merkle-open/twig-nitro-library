@@ -25,22 +25,22 @@ The following versions of PHP are currently supported.
 ## Usage
 ```twig
 {# Includes the component, component's default data is merged with the context #}
-{% component 'component-name' %}
+{% component 'Example' %}
 
 {# Includes the component, the default data is injected as a child context #}
-{% component 'component-name' only %}
+{% component 'Example' only %}
 
 {# Includes the component, but a variantion of the component data is merged with the context #}
-{% component 'component-name' 'component-name-variation' %}
+{% component 'Example' 'example-variant' %}
 
 {# Includes the component, but a variantion of the component data is injected as a child context #}
-{% component 'component-name' 'component-name-variation' only %}
+{% component 'Example' 'example-variant' only %}
 
 {# Includes the component, data object is merged with the context #}
-{% component 'component-name' { foo: 'bar' } %}
+{% component 'Example' { title: 'Inject an Object' } %}
 
 {# Includes the component, data object is injected as a child context #}
-{% component 'component-name' { foo: 'bar' } only %}
+{% component 'Example' { title: 'Inject an Object' } only %}
 ```
 
 ## Documentation
