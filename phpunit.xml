@@ -16,21 +16,4 @@
             <directory>./test/</directory>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">./src/Twig/</directory>
-          <exclude>
-            <directory suffix=".php">./src/Twig/TokenParser</directory>
-          </exclude>
-        </whitelist>
-    </filter>
-
-  <logging>
-    <log type="coverage-html"
-         target="/usr/local/var/log/phpunit/terrific-twig"
-         charset="UTF-8"
-         lowUpperBound="35"
-         highLowerBound="70"/>
-  </logging>
 </phpunit>
