@@ -31,10 +31,10 @@ The following versions of PHP are currently supported.
 {% component 'component-name' only %}
 
 {# Includes the component, but a variantion of the component data is merged with the context #}
-{% component 'component-name' 'component-name-variation' only %}
+{% component 'component-name' 'component-name-variation' %}
 
 {# Includes the component, but a variantion of the component data is injected as a child context #}
-{% component 'component-name' 'component-name-variation' %}
+{% component 'component-name' 'component-name-variation' only %}
 
 {# Includes the component, data object is merged with the context #}
 {% component 'component-name' { foo: 'bar' } %}
