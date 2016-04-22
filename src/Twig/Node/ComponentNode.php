@@ -2,117 +2,66 @@
 
 namespace Deniaz\Terrific\Twig\Node;
 
-use \Twig_Node;
-use \Twig_Node_Expression;
-use \Twig_NodeOutputInterface;
 use \Twig_Compiler;
-use \Twig_Node_Expression_Constant;
-use \stdClass;
+use \Twig_Node;
+use \Twig_NodeOutputInterface;
+use \Twig_Node_Expression;
 
-/**
- * Includes a Terrific Component.
- *
- * <pre>
- *   {% component 'Navigation' %}
- *   {% component 'Navigation' 'primary %}
- *   {% component 'Navigation' with {"active": "home"} %}
- *   {% component 'Navigation' 'primary with {"active": "home"} %}
- * </pre>
- *
- * Class ComponentNode
- * @package Deniaz\Terrific\Twig\Node
- */
-class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
-{
-    /**
-     * @var string Twig Template File Extension
-     */
-    private $fileExtension;
+final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface {
 
-    /**
-     * @param Twig_Node_Expression $template
-     * @param string               $fileExtension
-     * @param int                  $lineno
-     * @param null                 $variant
-     * @param null                 $variables
-     * @param null                 $tag
-     */
-    public function __construct(Twig_Node_Expression $template, $fileExtension, $lineno, $variant = null, $variables = null, $tag = null)
-    {
-        $this->fileExtension = $fileExtension;
+  /**
+   * ComponentNode constructor.
+   */
+  public function __construct(Twig_Node_Expression $component, Twig_Node_Expression $data = null, $only = false, $lineno, $tag = null) {
 
-        parent::__construct(
-            ['template' => $template],
-            ['variant' => $variant, 'variables' => $variables],
-            $lineno,
-            $tag
-        );
+    parent::__construct(
+      [ 'component' => $component, 'data' => $data ],
+      [ 'only' => (bool) $only ],
+      $lineno,
+      $tag
+    );
+  }
+
+  public function compile(Twig_Compiler $compiler) {
+    $compiler->addDebugInfo($this);
+
+    $this->addGetTemplate($compiler);
+
+    $compiler->raw('->display(');
+    $this->addTemplateArguments($compiler);
+    $compiler->raw(");\n");
+  }
+
+  protected function addGetTemplate(Twig_Compiler $compiler) {
+    $compiler
+      ->write('$this->loadTemplate(')
+      ->subcompile($this->getNode('component'))
+      ->raw(', ')
+      ->repr($compiler->getFilename())
+      ->raw(', ')
+      ->repr($this->getLine())
+      ->raw(')');
+  }
+
+  protected function addTemplateArguments(Twig_Compiler $compiler) {
+    $data = $this->getNode('data');
+    if (null === $data) {
+      $compiler->raw(false === $this->getAttribute('only') ? '$context' : '[]');
+    } elseif (false === $this->getAttribute('only')) {
+      $compiler->raw('array_merge($context, ');
+      $this->transformData($data, $compiler);
+      $compiler->raw(')');
+    } else {
+      $compiler->subcompile($this->getNode('data'));
     }
+  }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function compile(Twig_Compiler $compiler)
-    {
-        $compiler->addDebugInfo($this);
-
-        $this->addGetTemplate($compiler);
-
-        $compiler->raw('->display(');
-
-        $this->addTemplateArguments($compiler);
-
-        $compiler->raw(");\n");
+  protected function transformData(Twig_Node_Expression $node, Twig_Compiler $compiler)
+  {
+    if ($node instanceof \Twig_Node_Expression_Array) {
+      $compiler->subcompile($node);
+    } elseif ($node instanceof \Twig_Node_Expression_Constant) {
+      $compiler->subcompile("array('title' => '{$node->getAttribute('value')}')");
     }
-
-    /**
-     * Compiles the Template.
-     *
-     * @param Twig_Compiler $compiler
-     */
-    protected function addGetTemplate(Twig_Compiler $compiler)
-    {
-        $method = $this->getNode('template') instanceof Twig_Node_Expression_Constant ? 'loadTemplate' : 'resolveTemplate';
-        $this->setComponentPath();
-
-        $compiler
-            ->write(sprintf('$this->env->%s(', $method))
-            ->subcompile($this->getNode('template'))
-            ->raw(')')
-        ;
-    }
-
-    /**
-     * Compiles the injected variables
-     * @param Twig_Compiler $compiler
-     */
-    protected function addTemplateArguments(Twig_Compiler $compiler)
-    {
-        if (null === $this->getAttribute('variables')) {
-            $compiler->raw('$context');
-        } else {
-            $compiler
-                ->raw('array_merge($context, ')
-                ->subcompile($this->getAttribute('variables'))
-                ->raw(')');
-        }
-    }
-
-    /**
-     * Changes the Node's value to match the Terrific concept.
-     */
-    protected function setComponentPath()
-    {
-        $template = $this->getNode('template')->getAttribute('value');
-        $variant = $this->getAttribute('variant') === null
-            ? ''
-            : '-' . $this->getAttribute('variant');
-
-        $this
-            ->getNode('template')
-            ->setAttribute(
-                'value',
-                $template . '/' . strtolower($template) . strtolower($variant) . $this->fileExtension
-            );
-    }
+  }
 }

@@ -5,12 +5,14 @@ namespace Deniaz\Terrific\Twig\TokenParser;
 use Deniaz\Terrific\Twig\Node\ComponentNode;
 use \Twig_Token;
 use \Twig_TokenParser;
+use \Twig_Node_Expression_Array;
+use \Twig_Node_Expression_Constant;
 
 /**
  * Class ComponentTokenParser
  * @package Deniaz\Terrific\Twig\TokenParser
  */
-class ComponentTokenParser extends Twig_TokenParser
+final class ComponentTokenParser extends Twig_TokenParser
 {
     /**
      * @var string Twig Template File Extension
@@ -30,17 +32,10 @@ class ComponentTokenParser extends Twig_TokenParser
      */
     public function parse(Twig_Token $token)
     {
-        $template = $this->parser->getExpressionParser()->parseExpression();
-        list($variant, $variables) = $this->parseArguments();
+        $component = $this->parser->getExpressionParser()->parseExpression();
+        list($data, $only) = $this->parseArguments();
 
-        return new ComponentNode(
-            $template,
-            $this->fileExtension,
-            $token->getLine(),
-            $variant,
-            $variables,
-            $this->getTag()
-        );
+        return new ComponentNode($component, $data, $only, $token->getLine(), $this->getTag());
     }
 
     /**
@@ -51,18 +46,30 @@ class ComponentTokenParser extends Twig_TokenParser
     {
         $stream = $this->parser->getStream();
 
-        $variant = null;
-        if ($stream->test(Twig_Token::STRING_TYPE)) {
-            $variant = $stream->expect(Twig_Token::STRING_TYPE)->getValue();
+        $data = null;
+        $only = false;
+
+        if ($stream->test(Twig_Token::BLOCK_END_TYPE)) {
+            $stream->expect(Twig_Token::BLOCK_END_TYPE);
+            return [ $data, $only ];
         }
 
-        $variables = null;
-        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'with')) {
-            $variables = $this->parser->getExpressionParser()->parseExpression();
+        if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
+            $only = true;
+            $stream->next();
+            $stream->expect(Twig_Token::BLOCK_END_TYPE);
+            return [ $data, $only ];
+        }
+
+        $data = $this->parser->getExpressionParser()->parseExpression();
+
+        if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
+            $only = true;
+            $stream->next();
         }
 
         $stream->expect(Twig_Token::BLOCK_END_TYPE);
-        return [$variant, $variables];
+        return [ $data, $only ];
     }
 
     /**
