@@ -47,6 +47,7 @@ final class ComponentTokenParser extends Twig_TokenParser
         $stream = $this->parser->getStream();
 
         $data = null;
+<<<<<<< HEAD
         $only = false;
 
         if ($stream->test(Twig_Token::BLOCK_END_TYPE)) {
@@ -69,6 +70,19 @@ final class ComponentTokenParser extends Twig_TokenParser
         }
 
         $stream->expect(Twig_Token::BLOCK_END_TYPE);
+=======
+        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'with')) {
+            $data = $this->parser->getExpressionParser()->parseExpression();
+        }
+
+        $only = false;
+        if ($stream->nextIf(Twig_Token::NAME_TYPE, 'only')) {
+            $only = true;
+        }
+
+        $stream->expect(Twig_Token::BLOCK_END_TYPE);
+
+>>>>>>> 78298b060d695c124e89fd7ea92a87e9f6326bd4
         return [ $data, $only ];
     }
 

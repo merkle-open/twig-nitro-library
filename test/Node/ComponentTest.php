@@ -7,7 +7,6 @@ use \Twig_Node_Expression_Constant;
 use \Twig_Node_Expression_Array;
 use \stdClass;
 
-
 class ComponentTest extends \Twig_Test_NodeTestCase
 {
     public function testConstructor()

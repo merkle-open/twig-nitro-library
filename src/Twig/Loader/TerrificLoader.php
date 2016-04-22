@@ -3,15 +3,23 @@
 namespace Deniaz\Terrific\Twig\Loader;
 
 use Deniaz\Terrific\TemplateLocatorInterface;
+<<<<<<< HEAD
 use \Twig_Error_Loader;
 
 final class TerrificLoader extends \Twig_Loader_Filesystem {
 
   private $fileExtension = null;
+=======
+
+final class TerrificLoader extends \Twig_Loader_Filesystem
+{
+
+>>>>>>> 78298b060d695c124e89fd7ea92a87e9f6326bd4
   /**
    * TerrificLoader constructor.
    * @param TemplateLocatorInterface $locator
    */
+<<<<<<< HEAD
   public function __construct(TemplateLocatorInterface $locator) {
     parent::__construct($locator->getPaths());
 
@@ -70,3 +78,16 @@ final class TerrificLoader extends \Twig_Loader_Filesystem {
     throw new Twig_Error_Loader($this->errorCache[$name]);
   }
 }
+=======
+  public function __construct(TemplateLocatorInterface $locator)
+  {
+      parent::__construct($locator->getPaths());
+  }
+
+    public function getSource($name)
+    {
+        //var_dump($name);
+    return parent::getSource($name);
+    }
+}
+>>>>>>> 78298b060d695c124e89fd7ea92a87e9f6326bd4
