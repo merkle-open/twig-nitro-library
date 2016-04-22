@@ -7,9 +7,10 @@ php:
   - hhvm
   - nightly
 
-allow_failures:
-  - php: nightly
-  - php: 5.4
+matrix:
+  allow_failures:
+    - php: nightly
+    - php: 5.4
 
 install:
   - composer install
