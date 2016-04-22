@@ -56,12 +56,22 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
     }
   }
 
+  /**
+   * @param \Twig_Node_Expression $node
+   * @param \Twig_Compiler $compiler
+   * @TODO Actually do something about the second string param.
+   */
   protected function transformData(Twig_Node_Expression $node, Twig_Compiler $compiler)
   {
     if ($node instanceof \Twig_Node_Expression_Array) {
       $compiler->subcompile($node);
     } elseif ($node instanceof \Twig_Node_Expression_Constant) {
-      $compiler->subcompile("array('title' => '{$node->getAttribute('value')}')");
+      $compiler->subcompile(
+        new \Twig_Node_Expression_Array([
+          new \Twig_Node_Expression_Constant('data_source', $this->getLine()),
+          new \Twig_Node_Expression_Constant($node->getAttribute('value'), $this->getLine())
+        ], $this->getLine())
+      );
     }
   }
 }

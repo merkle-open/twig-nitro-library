@@ -21,7 +21,6 @@ final class TerrificLoader extends \Twig_Loader_Filesystem {
   }
 
   protected function findTemplate($name) {
-    $throw = func_num_args() > 1 ? func_get_arg(1) : TRUE;
     $name = $this->normalizeName($name);
 
     if (isset($this->cache[$name])) {
@@ -29,45 +28,23 @@ final class TerrificLoader extends \Twig_Loader_Filesystem {
     }
 
     if (isset($this->errorCache[$name])) {
-      if (!$throw) {
-        return FALSE;
-      }
-
       throw new Twig_Error_Loader($this->errorCache[$name]);
     }
 
     $this->validateName($name);
+    $namespace = parent::MAIN_NAMESPACE;
 
-    list($namespace, $shortname) = $this->parseName($name);
-
-    if (!isset($this->paths[$namespace])) {
-      $this->errorCache[$name] = sprintf('There are no registered paths for namespace "%s".', $namespace);
-
-      if (!$throw) {
-        return FALSE;
-      }
-
-      throw new Twig_Error_Loader($this->errorCache[$name]);
-    }
-
-    $terrificName = $shortname . '/' . strtolower($shortname) . '.' . $this->fileExtension;
-
+    $terrificPath = $name . '/' . strtolower($name) . '.' . $this->fileExtension;
 
     foreach ($this->paths[$namespace] as $path) {
-      if (is_file($path . '/' . $terrificName)) {
-        if (FALSE !== $realpath = realpath($path . '/' . $terrificName)) {
-          return $this->cache[$name] = $realpath;
-        }
-
-        return $this->cache[$name] = $path . '/' . $terrificName;
+      $fullPath = $path . '/' . $terrificPath;
+      $realPath = realpath($fullPath);
+      if (is_readable($fullPath) && $realPath !== false) {
+        return $this->cache[$name] = $realPath;
       }
     }
 
-    $this->errorCache[$name] = sprintf('Unable to find component "%s" (looked into: %s).', $terrificName, implode(', ', $this->paths[$namespace]));
-
-    if (!$throw) {
-      return FALSE;
-    }
+    $this->errorCache[$name] = sprintf('Unable to find component "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
 
     throw new Twig_Error_Loader($this->errorCache[$name]);
   }
