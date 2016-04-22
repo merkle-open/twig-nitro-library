@@ -79,6 +79,7 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
     protected function addTemplateArguments(Twig_Compiler $compiler)
     {
         $data = $this->getNode('data');
+
         if (null === $data) {
             $compiler->raw(false === $this->getAttribute('only') ? '$context' : '[]');
         } elseif (false === $this->getAttribute('only')) {
@@ -86,7 +87,7 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
             $this->transformData($data, $compiler);
             $compiler->raw(')');
         } else {
-            $compiler->subcompile($this->getNode('data'));
+            $this->transformData($data, $compiler);
         }
     }
 

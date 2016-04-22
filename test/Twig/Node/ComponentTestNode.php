@@ -6,7 +6,7 @@ use Deniaz\Terrific\Twig\Node\ComponentNode;
 use Twig_Node_Expression_Constant;
 use Twig_Node_Expression_Array;
 
-class ComponentTest extends \Twig_Test_NodeTestCase
+class ComponentNodeTest extends \Twig_Test_NodeTestCase
 {
     public function testContructor()
     {
