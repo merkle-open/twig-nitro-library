@@ -22,6 +22,40 @@ The following versions of PHP are currently supported.
 + PHP 7
 + HHVM
 
+## Setup
+Step 1: Implement `TemplateLocatorInterface`
+
+```php
+class TemplateLocator implements TemplateLocatorInterface
+{
+    public function getPaths()
+    {
+      return []; // List of path where Terrific Components can be found, e.g. (/var/www/example.com/frontend/components)
+    }
+    
+    public function getFileExtension()
+    {
+      $fileExtension = 'html.twig';
+      return $fileExtension;
+    }
+}
+```
+
+Step 2: Add `TerrificLoader`
+```php
+$loader = ...;
+$chain = new Twig_Loader_Chain([$loader, new TerrificLoader(new TemplateLocator)]);
+$twig = new Twig_Environment($chain);
+```
+
+Step 3: Add `TerrificExtension`
+```php
+$twig = new Twig_Environment($chain);
+$twig->addExtension(new TerrificExtension);
+```
+
+Step 4: Profit!
+
 ## Usage
 ```twig
 {# Includes the component, component's default data is merged with the context #}
@@ -57,6 +91,9 @@ The Node compiles the tokenized tag to PHP. To see some of the output, check the
 
 ### Loader
 The `TerrificLoader` extends the `Twig_Loader_Filesystem` as it actually loads templates from the filesystem. An implementation of `TemplateLocatorInterface` provides the paths where the loader should search for templates.
+
+### Locator
+An implementation of `TemplateLocatorInterface` should return a list of paths where templates live. These should be in the form of `['frontend/components/atoms', 'frontend/components/molecules', 'frontend/components/organisms']`. The component directory will be provided by the `TerrificLoader` (`Example/example.[ext]`).
 
 ### ConfigReader
 Reads nitro's `config.json` and parses essential information such as the component paths and file extension.
