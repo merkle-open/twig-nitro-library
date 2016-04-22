@@ -7,18 +7,19 @@ use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
 
 class TerrificExtensionTest extends \PHPUnit_Framework_TestCase
 {
-  public function testReturnsExtensionName()
-  {
-    $ext = new TerrificExtension();
-    $name = $ext->getName();
+    public function testReturnsExtensionName()
+    {
+        $ext = new TerrificExtension();
+        $name = $ext->getName();
 
-    $this->assertEquals('terrific', $name);
-  }
+        $this->assertEquals('terrific', $name);
+    }
 
-  public function testReturnsComponentTokenParser() {
-    $ext = new TerrificExtension();
-    $parsers = $ext->getTokenParsers();
+    public function testReturnsComponentTokenParser()
+    {
+        $ext = new TerrificExtension();
+        $parsers = $ext->getTokenParsers();
 
-    $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
-  }
+        $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
+    }
 }
