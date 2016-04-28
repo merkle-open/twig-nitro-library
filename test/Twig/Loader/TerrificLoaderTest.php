@@ -2,7 +2,7 @@
 
 namespace Deniaz\Test\Terrific\Twig\Loader;
 
-use Deniaz\Terrific\TemplateInformationProviderInterface;
+use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
 use Deniaz\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
 
