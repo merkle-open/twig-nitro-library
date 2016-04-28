@@ -2,6 +2,7 @@
 
 namespace Deniaz\Terrific\Twig\Extension;
 
+use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
 use \Twig_Extension;
 
@@ -16,6 +17,19 @@ use \Twig_Extension;
  */
 final class TerrificExtension extends Twig_Extension
 {
+    private $ctxProvider;
+
+    /**
+     * TerrificExtension constructor.
+     * @param ContextProviderInterface $ctxProvider
+     * @TODO: Default Provicer
+     */
+    public function __construct(ContextProviderInterface $ctxProvider)
+    {
+        $this->ctxProvider = $ctxProvider;
+    }
+
+
     /**
      * {@inheritdoc}
      */
@@ -30,7 +44,7 @@ final class TerrificExtension extends Twig_Extension
     public function getTokenParsers()
     {
         return [
-            new ComponentTokenParser(),
+            new ComponentTokenParser($this->ctxProvider),
         ];
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Deniaz\Test\Terrific\Twig\Loader;
 
-use Deniaz\Terrific\TemplateLocatorInterface;
+use Deniaz\Terrific\TemplateInformationProviderInterface;
 use Deniaz\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
 
@@ -16,7 +16,7 @@ class TerrificLoaderTest extends \PHPUnit_Framework_TestCase
         ];
 
         $stub = $this
-            ->getMockBuilder(TemplateLocatorInterface::class)
+            ->getMockBuilder(TemplateInformationProviderInterface::class)
             ->getMock();
 
         $stub

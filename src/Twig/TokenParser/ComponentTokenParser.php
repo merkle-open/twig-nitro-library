@@ -2,6 +2,7 @@
 
 namespace Deniaz\Terrific\Twig\TokenParser;
 
+use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\Node\ComponentNode;
 use Twig_Token;
 use Twig_TokenParser;
@@ -16,6 +17,13 @@ use Twig_TokenParser;
  */
 final class ComponentTokenParser extends Twig_TokenParser
 {
+    private $ctxProvider;
+
+    public function __construct(ContextProviderInterface $ctxProvider)
+    {
+        $this->ctxProvider = $ctxProvider;
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -24,7 +32,7 @@ final class ComponentTokenParser extends Twig_TokenParser
         $component = $this->parser->getExpressionParser()->parseExpression();
         list($data, $only) = $this->parseArguments();
 
-        return new ComponentNode($component, $data, $only, $token->getLine(), $this->getTag());
+        return new ComponentNode($component, $this->ctxProvider, $data, $only, $token->getLine(), $this->getTag());
     }
 
     /**
