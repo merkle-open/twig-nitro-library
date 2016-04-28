@@ -49,11 +49,35 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
     {
         $compiler->addDebugInfo($this);
 
-        $this->addGetTemplate($compiler);
+        $this->createTerrificContext($compiler);
 
-        $compiler->raw('->display(');
-        $this->addTemplateArguments($compiler);
-        $compiler->raw(");\n");
+        $this->addGetTemplate($compiler);
+        $compiler->raw('->display($tContext);');
+    }
+
+    protected function createTerrificContext(Twig_Compiler $compiler)
+    {
+        $dataVariant = $this->getNode('data');
+
+        if (false === $this->getAttribute('only')) {
+            $compiler->raw('$tContext = $context;');
+        } else {
+            $compiler->raw('$tContext = [];');
+        }
+
+        if (null === $dataVariant) {
+            $compiler
+                ->raw("\n")
+                ->raw('if (isset($context["element"]) && isset($context["element"]["terrific"])) {')
+                ->raw("\n\t")
+                ->raw(
+                    '$tContext = array_merge($tContext, $context["element"]["terrific"]);'
+                )
+                ->raw("\n")
+                ->raw('}');
+        } else {
+            $this->compileDataVariant($dataVariant, $compiler);
+        }
     }
 
     /**
@@ -72,44 +96,33 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
             ->raw(')');
     }
 
-    /**
-     * Adds the optional second and third arguments (Data Provider and only-attribute).
-     * @param Twig_Compiler $compiler
-     */
-    protected function addTemplateArguments(Twig_Compiler $compiler)
-    {
-        $data = $this->getNode('data');
-
-        if (null === $data) {
-            $compiler->raw(false === $this->getAttribute('only') ? '$context' : '[]');
-        } elseif (false === $this->getAttribute('only')) {
-            $compiler->raw('array_merge($context, ');
-            $this->transformData($data, $compiler);
-            $compiler->raw(')');
-        } else {
-            $this->transformData($data, $compiler);
-        }
-    }
 
     /**
      * Compiles the Data Provider, which is either an Expression Array (Data Object) or Expression Constant (Data
      * Variant).
      *
-     * @param Twig_Node_Expression $node Data Provider Node
+     * @param Twig_Node $node Data Provider Node
      * @param Twig_Compiler $compiler
      * @TODO: Implement some sort of Data Provider.
      */
-    protected function transformData(Twig_Node_Expression $node, Twig_Compiler $compiler)
+    protected function compileDataVariant(Twig_Node $node, Twig_Compiler $compiler)
     {
         if ($node instanceof Twig_Node_Expression_Array) {
-            $compiler->subcompile($node);
+            $compiler
+                ->raw('$tContext = array_merge($tContext, ')
+                ->subcompile($node)
+                ->raw(');');
         } elseif ($node instanceof Twig_Node_Expression_Constant) {
-            $compiler->subcompile(
-                new Twig_Node_Expression_Array([
-                    new Twig_Node_Expression_Constant('data_source', $this->getLine()),
-                    new Twig_Node_Expression_Constant($node->getAttribute('value'), $this->getLine()),
-                ], $this->getLine())
-            );
+            $compiler
+                ->raw('if (')
+                ->raw('isset($context["element"]) && ')
+                ->raw('isset($context["element"]["terrific"]) && ')
+                ->raw('isset($context["element"]["terrific"]["' . $node->getAttribute('value') . '"])')
+                ->raw(') {')
+                ->raw('$tContext = array_merge($tContext, ')
+                ->raw('$context["element"]["terrific"]["' . $node->getAttribute('value') . '"]')
+                ->raw(');')
+                ->raw('}');
         }
     }
 }
