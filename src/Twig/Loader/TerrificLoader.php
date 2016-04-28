@@ -2,7 +2,7 @@
 
 namespace Deniaz\Terrific\Twig\Loader;
 
-use Deniaz\Terrific\TemplateLocatorInterface;
+use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
 use \Twig_Error_Loader;
 use \Twig_Loader_Filesystem;
 
@@ -24,9 +24,9 @@ final class TerrificLoader extends Twig_Loader_Filesystem
 
     /**
      * TerrificLoader constructor.
-     * @param TemplateLocatorInterface $locator
+     * @param TemplateInformationProviderInterface $locator
      */
-    public function __construct(TemplateLocatorInterface $locator)
+    public function __construct(TemplateInformationProviderInterface $locator)
     {
         parent::__construct($locator->getPaths());
         $this->fileExtension = $locator->getFileExtension();

@@ -1,6 +1,6 @@
 <?php
 
-namespace Deniaz\Terrific;
+namespace Deniaz\Terrific\Provider;
 
 /**
  * Defines a common interface. Implementations tell the TerrificLoader where to look for templates.
@@ -11,7 +11,7 @@ namespace Deniaz\Terrific;
  *
  * @author Robert Vogt <robert.vogt@namics.com>
  */
-interface TemplateLocatorInterface
+interface TemplateInformationProviderInterface
 {
     /**
      * Returns a list of paths where templates might be stored.
