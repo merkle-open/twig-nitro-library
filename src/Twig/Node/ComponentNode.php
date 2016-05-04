@@ -59,13 +59,26 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
         $this->createTerrificContext($compiler);
 
         $this->addGetTemplate($compiler);
-        $compiler->raw('->display($tContext);');
+        $compiler
+            ->raw('->display($tContext);')
+            ->raw("\n\n");
+
+        $compiler->addDebugInfo($this->getNode('component'));
     }
 
     protected function createTerrificContext(Twig_Compiler $compiler)
     {
-        $compiler->raw('$tContext = $context;');
-        $this->ctxProvider->compile($compiler, $this->getNode('component'), $this->getNode('data'), $this->getAttribute('only'));
+        $compiler
+            ->addIndentation()
+            ->raw('$tContext = $context;')
+            ->raw("\n");
+
+        $this->ctxProvider->compile(
+          $compiler,
+          $this->getNode('component'),
+          $this->getNode('data'),
+          $this->getAttribute('only')
+        );
     }
 
     /**
