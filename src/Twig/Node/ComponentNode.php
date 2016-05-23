@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Twig\Node;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
@@ -15,20 +24,22 @@ use \Twig_Node_Expression_Constant;
  *
  * Class ComponentNode
  * @package Deniaz\Terrific\Twig\Node
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
 {
-
+    /**
+     * @var ContextProviderInterface Context Variable Provider
+     */
     private $ctxProvider;
+
     /**
      * ComponentNode constructor.
      * @param Twig_Node_Expression $component Expression representing the Component's Identifier.
-     * @param Twig_Node_Expression|null $data Expression representing the Data Provider.
+     * @param ContextProviderInterface $ctxProvider Context Provider.
+     * @param Twig_Node_Expression|null $data Expression representing the additional data.
      * @param bool $only Whether a new Child-Context should be created.
-     * @param int $lineno Line number.
-     * @param string $tag Tag name associated with the Node.
+     * @param int $lineno Line Number.
+     * @param string $tag Tag name associated with the node.
      */
     public function __construct(
         Twig_Node_Expression $component,
@@ -49,7 +60,6 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
     }
 
     /**
-     * Compiles the node.
      * @param Twig_Compiler $compiler
      */
     public function compile(Twig_Compiler $compiler)
@@ -66,6 +76,9 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
         $compiler->addDebugInfo($this->getNode('component'));
     }
 
+    /**
+     * @param Twig_Compiler $compiler
+     */
     protected function createTerrificContext(Twig_Compiler $compiler)
     {
         $compiler
@@ -74,10 +87,10 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
             ->raw("\n");
 
         $this->ctxProvider->compile(
-          $compiler,
-          $this->getNode('component'),
-          $this->getNode('data'),
-          $this->getAttribute('only')
+            $compiler,
+            $this->getNode('component'),
+            $this->getNode('data'),
+            $this->getAttribute('only')
         );
     }
 

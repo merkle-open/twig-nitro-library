@@ -1,17 +1,24 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Config;
 
 use \DomainException;
 
 /**
- * ConfigReader reads Terrific Nitro's config.json and parses essential information such as component paths and view
+ * ConfigReader reads Terrific Nitro's config.json and parses essential information such as component paths and the view
  * file extension.
  *
  * Class ConfigReader
  * @package Deniaz\Terrific\Config
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 final class ConfigReader
 {

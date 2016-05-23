@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Twig\Loader;
 
 use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
@@ -12,8 +21,6 @@ use \Twig_Loader_Filesystem;
  *
  * Class TerrificLoader
  * @package Deniaz\Terrific\Twig\Loader
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 final class TerrificLoader extends Twig_Loader_Filesystem
 {

@@ -1,15 +1,22 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Provider;
 
 /**
- * Defines a common interface. Implementations tell the TerrificLoader where to look for templates.
+ * Interface to describe Template Information.
  *
  * Interface TemplateLocatorInterface
  * @package Deniaz\Terrific
  * @see Deniaz\Terrific\Twig\LoaderTerrificLoader
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 interface TemplateInformationProviderInterface
 {

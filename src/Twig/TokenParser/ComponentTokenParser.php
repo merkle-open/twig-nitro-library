@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Twig\TokenParser;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
@@ -12,13 +21,18 @@ use Twig_TokenParser;
  *
  * Class ComponentTokenParser
  * @package Deniaz\Terrific\Twig\TokenParser
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 final class ComponentTokenParser extends Twig_TokenParser
 {
+    /**
+     * @var ContextProviderInterface Context Variable Provider.
+     */
     private $ctxProvider;
 
+    /**
+     * ComponentTokenParser constructor.
+     * @param ContextProviderInterface $ctxProvider
+     */
     public function __construct(ContextProviderInterface $ctxProvider)
     {
         $this->ctxProvider = $ctxProvider;

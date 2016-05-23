@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file is part of the Terrific Twig package.
+ *
+ * (c) Robert Vogt <robert.vogt@namics.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Deniaz\Terrific\Twig\Extension;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
@@ -12,24 +21,24 @@ use \Twig_Extension;
  *
  * Class TerrificExtension
  * @package Deniaz\Terrific\Twig\Extension
- *
- * @author Robert Vogt <robert.vogt@namics.com>
  */
 final class TerrificExtension extends Twig_Extension
 {
+    /**
+     * @var ContextProviderInterface Context Variable Provider.
+     */
     private $ctxProvider;
 
     /**
      * TerrificExtension constructor.
      * @param ContextProviderInterface $ctxProvider
-     * @TODO: Default Provicer
+     * @TODO: Default Provider?
      */
     public function __construct(ContextProviderInterface $ctxProvider)
     {
         $this->ctxProvider = $ctxProvider;
     }
-
-
+    
     /**
      * {@inheritdoc}
      */
