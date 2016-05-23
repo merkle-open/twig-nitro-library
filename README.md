@@ -4,7 +4,9 @@
 [![Total Downloads](https://poser.pugx.org/deniaz/terrific-twig/downloads.svg)](https://packagist.org/packages/deniaz/terrific-twig)
 [![License](https://poser.pugx.org/deniaz/terrific-twig/license.svg)](https://packagist.org/packages/deniaz/terrific-twig)
 
-This Twig Extension adds a new `component` tag to Twig which works just like the `component` helper from [Nitro](https://github.com/namics/generator-nitro).
+Extension to embrace the [Terrific](https://github.com/brunschgi/terrificjs) frontend methodology in [Twig](http://twig.sensiolabs.org/).
+
+Currently it adds a custom `component` tag to Twig which mimics [Nitro](https://github.com/namics/generator-nitro)'s handlebars helper.
 
 ## Installation
 Using [composer](https://packagist.org/packages/deniaz/terrific-twig):
@@ -12,6 +14,7 @@ Using [composer](https://packagist.org/packages/deniaz/terrific-twig):
 ```bash
 $ composer require deniaz/terrific-twig
 ```
+
 ## Requirements
 
 The following versions of PHP are currently supported.
