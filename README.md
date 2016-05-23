@@ -26,10 +26,10 @@ The following versions of PHP are currently supported.
 + HHVM
 
 ## Setup
-Step 1: Implement `TemplateLocatorInterface`
+Step 1: Implement `TemplateInformationProvider`
 
 ```php
-class TemplateLocator implements TemplateLocatorInterface
+class TemplateInformationProvider implements TemplateInformationProviderInterface
 {
     public function getPaths()
     {
@@ -44,20 +44,31 @@ class TemplateLocator implements TemplateLocatorInterface
 }
 ```
 
-Step 2: Add `TerrificLoader`
+Step 2: Implement `ContextProviderInterface`
+
+```php
+class ContextProvider implements ContextProviderInterface
+{
+    public function compile(Twig_Compiler $compiler, Twig_Node $component, Twig_Node $dataVariant, $only) {
+        // ...
+    }
+}
+```
+
+Step 3: Add `TerrificLoader`
 ```php
 $loader = ...;
-$chain = new Twig_Loader_Chain([$loader, new TerrificLoader(new TemplateLocator)]);
+$chain = new Twig_Loader_Chain([$loader, new TerrificLoader(new TemplateInformationProvider)]);
 $twig = new Twig_Environment($chain);
 ```
 
-Step 3: Add `TerrificExtension`
+Step 4: Add `TerrificExtension`
 ```php
 $twig = new Twig_Environment($chain);
-$twig->addExtension(new TerrificExtension);
+$twig->addExtension(new TerrificExtension(new ContextProvider));
 ```
 
-Step 4: Profit!
+Step 5: Profit!
 
 ## Usage
 ```twig
@@ -95,8 +106,12 @@ The Node compiles the tokenized tag to PHP. To see some of the output, check the
 ### Loader
 The `TerrificLoader` extends the `Twig_Loader_Filesystem` as it actually loads templates from the filesystem. An implementation of `TemplateLocatorInterface` provides the paths where the loader should search for templates.
 
-### Locator
-An implementation of `TemplateLocatorInterface` should return a list of paths where templates live. These should be in the form of `['frontend/components/atoms', 'frontend/components/molecules', 'frontend/components/organisms']`. The component directory will be provided by the `TerrificLoader` (`Example/example.[ext]`).
+### Template Information Provider
+An implementation of `TemplateInformationProviderInterface` should return a list of paths where templates live. These should be in the form of `['frontend/components/atoms', 'frontend/components/molecules', 'frontend/components/organisms']`. The component directory will be provided by the `TerrificLoader` (`Example/example.[ext]`).
+
+### Context Provider
+This is the tricky part. An implementation of `ContextProviderInterface` decides which data will be made available to Twig templates.
+TODO: More on that.
 
 ### ConfigReader
 Reads nitro's `config.json` and parses essential information such as the component paths and file extension.
