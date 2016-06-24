@@ -20,6 +20,6 @@
     },
     "require": {
         "php": ">=5.4",
-        "twig/twig": "1.23.*"
+        "twig/twig": "~1.24"
     }
 }
