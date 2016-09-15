@@ -1,18 +1,18 @@
 # Terrific Twig
-[![Build Status](https://travis-ci.org/deniaz/terrific-twig.svg?branch=master)](https://travis-ci.org/deniaz/terrific-twig)
-[![Latest Stable Version](https://poser.pugx.org/deniaz/terrific-twig/v/stable.svg)](https://packagist.org/packages/deniaz/terrific-twig)
-[![Total Downloads](https://poser.pugx.org/deniaz/terrific-twig/downloads.svg)](https://packagist.org/packages/deniaz/terrific-twig)
-[![License](https://poser.pugx.org/deniaz/terrific-twig/license.svg)](https://packagist.org/packages/deniaz/terrific-twig)
+[![Build Status](https://travis-ci.org/namics/terrific-twig.svg?branch=master)](https://travis-ci.org/namics/terrific-twig)
+[![Latest Stable Version](https://poser.pugx.org/namics/terrific-twig/v/stable.svg)](https://packagist.org/packages/namics/terrific-twig)
+[![Total Downloads](https://poser.pugx.org/namics/terrific-twig/downloads.svg)](https://packagist.org/packages/namics/terrific-twig)
+[![License](https://poser.pugx.org/namics/terrific-twig/license.svg)](https://packagist.org/packages/namics/terrific-twig)
 
 Extension to embrace the [Terrific](https://github.com/brunschgi/terrificjs) frontend methodology in [Twig](http://twig.sensiolabs.org/).
 
 Currently it adds a custom `component` tag to Twig which mimics [Nitro](https://github.com/namics/generator-nitro)'s handlebars helper.
 
 ## Installation
-Using [composer](https://packagist.org/packages/deniaz/terrific-twig):
+Using [composer](https://packagist.org/packages/namics/terrific-twig):
 
 ```bash
-$ composer require deniaz/terrific-twig
+$ composer require namics/terrific-twig
 ```
 
 ## Requirements
@@ -101,7 +101,7 @@ The token parser contains the parsing step for the component tag. It tokenizes t
 The functionality is based on the fantastic `Twig_TokenParser_Include`.
 
 ### Node
-The Node compiles the tokenized tag to PHP. To see some of the output, check the [`ComponentTest`](https://github.com/deniaz/terrific-twig/blob/master/test/Twig/Node/ComponentTest.php).
+The Node compiles the tokenized tag to PHP. To see some of the output, check the [`ComponentTest`](https://github.com/namics/terrific-twig/blob/master/test/Twig/Node/ComponentTest.php).
 
 ### Loader
 The `TerrificLoader` extends the `Twig_Loader_Filesystem` as it actually loads templates from the filesystem. An implementation of `TemplateLocatorInterface` provides the paths where the loader should search for templates.
