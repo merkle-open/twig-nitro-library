@@ -1,9 +1,9 @@
 {
-    "name": "deniaz/terrific-twig",
-    "description": "Adds a component tag to Twig, analogue to the component handlebars helper in Splendid.",
+    "name": "namics/terrific-twig",
+    "description": "Extension to embrace the Terrific frontend methodology in Twig. Currently it adds a custom component tag to Twig which mimics Nitro's handlebars helper.",
     "type": "library",
-    "keywords": ["terrific", "splendid", "twig"],
-    "homepage": "https://github.com/deniaz/terrific-twig",
+    "keywords": ["terrific", "nitro", "twig", "integration", "namics"],
+    "homepage": "https://github.com/namics/terrific-twig",
     "license": "MIT",
     "authors": [
         {
