@@ -6,54 +6,62 @@ use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
 use Deniaz\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
 
-class TerrificLoaderTest extends \PHPUnit_Framework_TestCase
-{
-    public function testPaths()
-    {
-        $paths = [
-            __DIR__ . '/Fixtures/atoms',
-            __DIR__ . '/Fixtures/molecules',
-        ];
+/**
+ *
+ */
+class TerrificLoaderTest extends \PHPUnit_Framework_TestCase {
 
-        $stub = $this
-            ->getMockBuilder(TemplateInformationProviderInterface::class)
-            ->getMock();
+  /**
+   *
+   */
+  public function testPaths() {
+    $paths = [
+      __DIR__ . '/Fixtures/atoms',
+      __DIR__ . '/Fixtures/molecules',
+    ];
 
-        $stub
-            ->method('getPaths')
-            ->willReturn($paths);
+    $stub = $this
+      ->getMockBuilder(TemplateInformationProviderInterface::class)
+      ->getMock();
 
-        $stub
-            ->method('getFileExtension')
-            ->willReturn('html');
+    $stub
+      ->method('getPaths')
+      ->willReturn($paths);
 
-        $loader = new TerrificLoader($stub);
+    $stub
+      ->method('getFileExtension')
+      ->willReturn('html');
 
-        $this->assertEquals($paths, $loader->getPaths());
+    $loader = new TerrificLoader($stub);
 
-        $source = $loader->getSource('molecule');
-        $this->assertEquals("--molecule_content--\n", $source);
+    $this->assertEquals($paths, $loader->getPaths());
 
-        $source = $loader->getSource('atom');
-        $this->assertEquals("--atom_content--\n", $source);
+    $source = $loader->getSource('molecule');
+    $this->assertEquals("--molecule_content--\n", $source);
 
-        // Check if the cache is invoked
-        $source = $loader->getSource('atom');
-        $this->assertEquals("--atom_content--\n", $source);
+    $source = $loader->getSource('atom');
+    $this->assertEquals("--atom_content--\n", $source);
 
-        try {
-            $loader->getSource('fake-component');
-        } catch (Exception $e) {
-            $this->assertInstanceOf('Twig_Error_Loader', $e);
-            $this->assertContains('Unable to find component "fake-component"', $e->getMessage());
-        }
+    // Check if the cache is invoked.
+    $source = $loader->getSource('atom');
+    $this->assertEquals("--atom_content--\n", $source);
 
-        // Check if the cache is invoked
-        try {
-            $loader->getSource('fake-component');
-        } catch (Exception $e) {
-            $this->assertInstanceOf('Twig_Error_Loader', $e);
-            $this->assertContains('Unable to find component "fake-component"', $e->getMessage());
-        }
+    try {
+      $loader->getSource('fake-component');
     }
+    catch (Exception $e) {
+      $this->assertInstanceOf('Twig_Error_Loader', $e);
+      $this->assertContains('Unable to find component "fake-component"', $e->getMessage());
+    }
+
+    // Check if the cache is invoked.
+    try {
+      $loader->getSource('fake-component');
+    }
+    catch (Exception $e) {
+      $this->assertInstanceOf('Twig_Error_Loader', $e);
+      $this->assertContains('Unable to find component "fake-component"', $e->getMessage());
+    }
+  }
+
 }

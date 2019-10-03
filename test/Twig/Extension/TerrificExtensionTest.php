@@ -6,23 +6,31 @@ use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\Extension\TerrificExtension;
 use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
 
-class TerrificExtensionTest extends \PHPUnit_Framework_TestCase
-{
-    public function testReturnsExtensionName()
-    {
-        $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-        $ext = new TerrificExtension($stub);
-        $name = $ext->getName();
+/**
+ *
+ */
+class TerrificExtensionTest extends \PHPUnit_Framework_TestCase {
 
-        $this->assertEquals('terrific', $name);
-    }
+  /**
+   *
+   */
+  public function testReturnsExtensionName() {
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+    $ext = new TerrificExtension($stub);
+    $name = $ext->getName();
 
-    public function testReturnsComponentTokenParser()
-    {
-        $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-        $ext = new TerrificExtension($stub);
-        $parsers = $ext->getTokenParsers();
+    $this->assertEquals('terrific', $name);
+  }
 
-        $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
-    }
+  /**
+   *
+   */
+  public function testReturnsComponentTokenParser() {
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+    $ext = new TerrificExtension($stub);
+    $parsers = $ext->getTokenParsers();
+
+    $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
+  }
+
 }
