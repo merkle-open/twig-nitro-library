@@ -12,6 +12,9 @@
 namespace Deniaz\Terrific\Twig\Node;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
+use Twig\Node\Expression\ArrayExpression;
+use Twig\Node\Expression\ConstantExpression;
+use Twig\Node\Expression\NameExpression;
 use \Twig_Compiler;
 use \Twig_Node;
 use \Twig_NodeOutputInterface;
@@ -66,9 +69,12 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
     {
         $compiler->addDebugInfo($this);
 
+        // Create data.
         $this->createTerrificContext($compiler);
 
+        // Load component template.
         $this->addGetTemplate($compiler);
+
         $compiler
             ->raw('->display($tContext);')
             ->raw("\n\n");
@@ -96,17 +102,30 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface
 
     /**
      * Adds the first expression (Component Identifier) and compiles the template loading logic.
+     *
+     * IMPORTANT: Has to be executed after the Terrific context was created (ComponentNode::createTerrificContext).
+     *
      * @param Twig_Compiler $compiler
+     *   The Twig compiler.
      */
     protected function addGetTemplate(Twig_Compiler $compiler)
     {
-        $compiler
-            ->write('$this->loadTemplate(')
-            ->subcompile($this->getNode('component'))
-            ->raw(', ')
-            ->repr($compiler->getFilename())
-            ->raw(', ')
-            ->repr($this->getLine())
-            ->raw(')');
+      $compiler->write('$this->loadTemplate(');
+
+      // If a variable is used for component name, use it's value (is inside Terrifc context "$tContext") for template name.
+      if ($this->getNode('component') instanceof NameExpression) {
+        $compiler->raw('$tContext["' . $this->getNode('component')->getAttribute('name') . '"]');
+      }
+      // If a static string (constant) is used for component name, compile it (prints it).
+      elseif ($this->getNode('component') instanceof ConstantExpression) {
+        $compiler->subcompile($this->getNode('component'));
+      }
+
+      $compiler
+          ->raw(', ')
+          ->repr($compiler->getFilename())
+          ->raw(', ')
+          ->repr($this->getLine())
+          ->raw(')');
     }
 }
