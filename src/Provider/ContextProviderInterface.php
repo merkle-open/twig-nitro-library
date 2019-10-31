@@ -15,6 +15,13 @@ use Twig\Node\Node;
 interface ContextProviderInterface {
 
   /**
+   * The variable name of the Terrific Twig context.
+   *
+   * @var string
+   */
+  public const TERRIFIC_CONTEXT_VARIABLE = '$tContext';
+
+  /**
    * Compiles the $tContext variable which is passed to the Twig Template.
    *
    * @param \Twig\Compiler $compiler

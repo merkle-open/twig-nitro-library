@@ -73,7 +73,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     $this->addGetTemplate($compiler);
 
     $compiler
-      ->raw('->display($tContext);')
+      ->raw('->display(' . ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ');')
       ->raw("\n\n");
 
     $compiler->addDebugInfo($this->getNode('component'));
@@ -88,7 +88,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   protected function createTerrificContext(Compiler $compiler) {
     $compiler
       ->addIndentation()
-      ->raw('$tContext = $context;')
+      ->raw(ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ' = $context;')
       ->raw("\n");
 
     $this->ctxProvider->compile(
