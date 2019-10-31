@@ -16,6 +16,8 @@ use Twig\TokenParser\AbstractTokenParser;
  */
 final class ComponentTokenParser extends AbstractTokenParser {
   /**
+   * The context provider.
+   *
    * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */
   private $ctxProvider;
@@ -24,6 +26,7 @@ final class ComponentTokenParser extends AbstractTokenParser {
    * ComponentTokenParser constructor.
    *
    * @param \Deniaz\Terrific\Provider\ContextProviderInterface $ctxProvider
+   *   The context provider.
    */
   public function __construct(ContextProviderInterface $ctxProvider) {
     $this->ctxProvider = $ctxProvider;
@@ -43,6 +46,7 @@ final class ComponentTokenParser extends AbstractTokenParser {
    * Tokenizes the component stream.
    *
    * @return array
+   *   Array containing data and only flag.
    */
   protected function parseArguments() {
     $stream = $this->parser->getStream();

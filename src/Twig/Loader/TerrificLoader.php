@@ -7,15 +7,21 @@ use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * TerrificLoader searches for templates on the filesystem within a terrific structure. Since the templates are stored
- * on the filesystem nonetheless, TerrificLoader extends Twig's Twig_Loader_Filesystem.
+ * TerrificLoader searches for templates on the filesystem.
+ *
+ * Within a terrific structure.
+ * Since the templates are stored on the filesystem nonetheless,
+ * TerrificLoader extends Twig's Twig_Loader_Filesystem.
  *
  * Class TerrificLoader.
  *
  * @package Deniaz\Terrific\Twig\Loader
  */
 final class TerrificLoader extends FilesystemLoader {
+
   /**
+   * The template file extension to use.
+   *
    * @var string
    */
   private $fileExtension = 'html.twig';
@@ -24,6 +30,7 @@ final class TerrificLoader extends FilesystemLoader {
    * TerrificLoader constructor.
    *
    * @param \Deniaz\Terrific\Provider\TemplateInformationProviderInterface $locator
+   *   The template locator.
    */
   public function __construct(TemplateInformationProviderInterface $locator) {
     parent::__construct($locator->getPaths());
