@@ -4,8 +4,8 @@ namespace Deniaz\Terrific\Twig\TokenParser;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\Node\ComponentNode;
-use Twig_Token;
-use Twig_TokenParser;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Includes a Terrific Component.
@@ -14,7 +14,7 @@ use Twig_TokenParser;
  *
  * @package Deniaz\Terrific\Twig\TokenParser
  */
-final class ComponentTokenParser extends Twig_TokenParser {
+final class ComponentTokenParser extends AbstractTokenParser {
   /**
    * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */
@@ -32,7 +32,7 @@ final class ComponentTokenParser extends Twig_TokenParser {
   /**
    * {@inheritdoc}
    */
-  public function parse(Twig_Token $token) {
+  public function parse(Token $token) {
     $component = $this->parser->getExpressionParser()->parseExpression();
     list($data, $only) = $this->parseArguments();
 
@@ -50,28 +50,28 @@ final class ComponentTokenParser extends Twig_TokenParser {
     $data = NULL;
     $only = FALSE;
 
-    if ($stream->test(Twig_Token::BLOCK_END_TYPE)) {
-      $stream->expect(Twig_Token::BLOCK_END_TYPE);
+    if ($stream->test(Token::BLOCK_END_TYPE)) {
+      $stream->expect(Token::BLOCK_END_TYPE);
 
       return [$data, $only];
     }
 
-    if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
+    if ($stream->test(Token::NAME_TYPE, 'only')) {
       $only = TRUE;
       $stream->next();
-      $stream->expect(Twig_Token::BLOCK_END_TYPE);
+      $stream->expect(Token::BLOCK_END_TYPE);
 
       return [$data, $only];
     }
 
     $data = $this->parser->getExpressionParser()->parseExpression();
 
-    if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
+    if ($stream->test(Token::NAME_TYPE, 'only')) {
       $only = TRUE;
       $stream->next();
     }
 
-    $stream->expect(Twig_Token::BLOCK_END_TYPE);
+    $stream->expect(Token::BLOCK_END_TYPE);
 
     return [$data, $only];
   }

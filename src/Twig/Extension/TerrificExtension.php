@@ -4,7 +4,7 @@ namespace Deniaz\Terrific\Twig\Extension;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 
 /**
  * TerrificExtension adds Terrific Features to the Twig Environment. Currently only the ComponentTokenParser is added,
@@ -14,7 +14,7 @@ use Twig_Extension;
  *
  * @package Deniaz\Terrific\Twig\Extension
  */
-final class TerrificExtension extends Twig_Extension {
+final class TerrificExtension extends AbstractExtension {
   /**
    * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */

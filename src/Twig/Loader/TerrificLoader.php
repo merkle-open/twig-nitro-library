@@ -3,8 +3,8 @@
 namespace Deniaz\Terrific\Twig\Loader;
 
 use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
-use Twig_Error_Loader;
-use Twig_Loader_Filesystem;
+use Twig\Error\LoaderError;
+use Twig\Loader\FilesystemLoader;
 
 /**
  * TerrificLoader searches for templates on the filesystem within a terrific structure. Since the templates are stored
@@ -14,7 +14,7 @@ use Twig_Loader_Filesystem;
  *
  * @package Deniaz\Terrific\Twig\Loader
  */
-final class TerrificLoader extends Twig_Loader_Filesystem {
+final class TerrificLoader extends FilesystemLoader {
   /**
    * @var string
    */
@@ -41,7 +41,7 @@ final class TerrificLoader extends Twig_Loader_Filesystem {
     }
 
     if (isset($this->errorCache[$name])) {
-      throw new Twig_Error_Loader($this->errorCache[$name]);
+      throw new LoaderError($this->errorCache[$name]);
     }
 
     $this->validateName($name);
@@ -59,7 +59,7 @@ final class TerrificLoader extends Twig_Loader_Filesystem {
 
     $this->errorCache[$name] = sprintf('Unable to find component "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
 
-    throw new Twig_Error_Loader($this->errorCache[$name]);
+    throw new LoaderError($this->errorCache[$name]);
   }
 
 }

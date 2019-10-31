@@ -3,12 +3,11 @@
 namespace Deniaz\Terrific\Twig\Node;
 
 use Deniaz\Terrific\Provider\ContextProviderInterface;
+use Twig\Compiler;
 use Twig\Node\Expression\ConstantExpression;
 use Twig\Node\Expression\NameExpression;
-use Twig_Compiler;
-use Twig_Node;
-use Twig_Node_Expression;
-use Twig_NodeOutputInterface;
+use Twig\Node\Node;
+use Twig\Node\NodeOutputInterface;
 
 /**
  * ComponentNode represents a component node.
@@ -17,7 +16,7 @@ use Twig_NodeOutputInterface;
  *
  * @package Deniaz\Terrific\Twig\Node
  */
-final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface {
+final class ComponentNode extends Node implements NodeOutputInterface {
   /**
    * The context provider.
    *
@@ -28,11 +27,11 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
   /**
    * ComponentNode constructor.
    *
-   * @param \Twig_Node_Expression $component
+   * @param \Twig\Node\Node $component
    *   Expression representing the Component's Identifier.
    * @param \Deniaz\Terrific\Provider\ContextProviderInterface $ctxProvider
    *   Context Provider.
-   * @param \Twig_Node_Expression|null $data
+   * @param \Twig\Node\Node|null $data
    *   Expression representing the additional data.
    * @param bool $only
    *   Whether a new Child-Context should be created.
@@ -42,9 +41,9 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
    *   Tag name associated with the node.
    */
   public function __construct(
-        Twig_Node_Expression $component,
+        Node $component,
         ContextProviderInterface $ctxProvider,
-        Twig_Node_Expression $data = NULL,
+        Node $data = NULL,
         $only = FALSE,
         $lineno,
         $tag = NULL) {
@@ -61,10 +60,10 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
   /**
    * Compiles the component.
    *
-   * @param \Twig_Compiler $compiler
+   * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  public function compile(Twig_Compiler $compiler) {
+  public function compile(Compiler $compiler) {
     $compiler->addDebugInfo($this);
 
     // Create data.
@@ -83,10 +82,10 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
   /**
    * Makes the data for the component available to it.
    *
-   * @param \Twig_Compiler $compiler
+   * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  protected function createTerrificContext(Twig_Compiler $compiler) {
+  protected function createTerrificContext(Compiler $compiler) {
     $compiler
       ->addIndentation()
       ->raw('$tContext = $context;')
@@ -107,10 +106,10 @@ final class ComponentNode extends Twig_Node implements Twig_NodeOutputInterface 
    * IMPORTANT: Has to be executed after the Terrific context was created
    * (ComponentNode::createTerrificContext).
    *
-   * @param \Twig_Compiler $compiler
+   * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  protected function addGetTemplate(Twig_Compiler $compiler) {
+  protected function addGetTemplate(Compiler $compiler) {
     $compiler->write('$this->loadTemplate(');
 
     /* If a variable is used for component name, use it's value (is inside Terrifc context "$tContext") for template name. */
