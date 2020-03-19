@@ -5,9 +5,9 @@ namespace Deniaz\Terrific\Twig;
 use Deniaz\Terrific\Provider\ContextProviderInterface;
 use Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
 use Deniaz\Terrific\Twig\Utility\ExpressionHandler;
+use Twig\Compiler;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
-use Twig_CompilerInterface as CompilerInterface;
 
 /**
  * Extends the Twig compiler with additional functionality.
@@ -19,7 +19,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * The base Twig compiler.
    *
-   * @var \Twig_CompilerInterface
+   * @var \Twig\Compiler
    */
   protected $compiler;
 
@@ -36,20 +36,20 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * TerrificCompiler constructor.
    *
-   * @param \Twig_CompilerInterface $compiler
+   * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  protected function __construct(CompilerInterface $compiler) {
+  protected function __construct(Compiler $compiler) {
     $this->compiler = $compiler;
   }
 
   /**
    * Instantiates a new object.
    *
-   * @param \Twig_CompilerInterface $compiler
+   * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  public static function create(CompilerInterface $compiler): self {
+  public static function create(Compiler $compiler): self {
     return new self($compiler);
   }
 
@@ -193,10 +193,10 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * Returns the base Twig compiler.
    *
-   * @return \Twig_CompilerInterface
+   * @return \Twig\Compiler
    *   The Twig compiler.
    */
-  public function getTwigCompiler(): CompilerInterface {
+  public function getTwigCompiler(): Compiler {
     return $this->compiler;
   }
 

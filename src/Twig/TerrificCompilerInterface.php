@@ -3,9 +3,9 @@
 namespace Deniaz\Terrific\Twig;
 
 use Deniaz\Terrific\Twig\Utility\ExpressionHandler;
+use Twig\Compiler;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
-use Twig_CompilerInterface as CompilerInterface;
 
 /**
  * Extends the base Twig compiler.
@@ -17,10 +17,10 @@ interface TerrificCompilerInterface {
   /**
    * Returns the base Twig compiler.
    *
-   * @return \Twig_CompilerInterface
+   * @return \Twig\Compiler
    *   The Twig compiler.
    */
-  public function getTwigCompiler(): CompilerInterface;
+  public function getTwigCompiler(): Compiler;
 
   /**
    * Compiles NameExpression as a variable to access.
