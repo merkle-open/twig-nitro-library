@@ -1,10 +1,10 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\Extension;
+namespace Namics\Test\Terrific\Twig\Extension;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\Extension\TerrificExtension;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\Extension\TerrificExtension;
+use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 
 /**
  *

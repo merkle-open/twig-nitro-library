@@ -1,10 +1,10 @@
 <?php
 
-namespace Deniaz\Terrific\Twig;
+namespace Namics\Terrific\Twig;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
-use Deniaz\Terrific\Twig\Utility\ExpressionHandler;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
+use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
@@ -12,7 +12,7 @@ use Twig\Node\Expression\NameExpression;
 /**
  * Extends the Twig compiler with additional functionality.
  *
- * @package \Deniaz\Terrific\Twig
+ * @package \Namics\Terrific\Twig
  */
 class TerrificCompiler implements TerrificCompilerInterface {
 
@@ -29,7 +29,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    * Should not be accessed directly by methods.
    * Except the getter.
    *
-   * @var |Deniaz\Terrific\Twig\Utility\ExpressionHandler
+   * @var |Namics\Terrific\Twig\Utility\ExpressionHandler
    */
   private $expressionHandler;
 
@@ -86,7 +86,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * Compiles given variable as a Twig context variable.
    *
-   * @param \Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
+   * @param \Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
    *   Object containing the variable name and optionally array keys.
    * @param string $contextVariable
    *   The PHP variable to use as base for adding the array keys.
@@ -135,7 +135,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *
    * So it it's data is available in the compiled component.
    *
-   * @param \Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
+   * @param \Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
    *   Object containing the variable name and optionally array keys.
    * @param string|null $variableDoesNotExistErrorMessage
    *   Custom error message that is used as exception message
@@ -179,7 +179,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * Returns the expression handler.
    *
-   * @return \Deniaz\Terrific\Twig\Utility\ExpressionHandler
+   * @return \Namics\Terrific\Twig\Utility\ExpressionHandler
    *   The expression handler.
    */
   public function getExpressionHandler(): ExpressionHandler {

@@ -14,8 +14,8 @@
     ],
     "autoload": {
         "psr-4": {
-            "Deniaz\\Terrific\\": "src/",
-            "Deniaz\\Test\\Terrific\\": "test/"
+            "Namics\\Terrific\\": "src/",
+            "Namics\\Test\\Terrific\\": "test/"
         }
     },
     "require": {

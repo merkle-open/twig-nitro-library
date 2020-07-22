@@ -1,6 +1,6 @@
 <?php
 
-namespace Deniaz\Terrific\Config;
+namespace Namics\Terrific\Config;
 
 use DomainException;
 
@@ -10,7 +10,7 @@ use DomainException;
  *
  * Class ConfigReader.
  *
- * @package Deniaz\Terrific\Config
+ * @package Namics\Terrific\Config
  */
 final class ConfigReader {
   /**

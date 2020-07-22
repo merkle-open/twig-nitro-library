@@ -1,9 +1,9 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\TokenParser;
+namespace Namics\Terrific\Twig\TokenParser;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\Node\ComponentNode;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\Node\ComponentNode;
 use Twig\Token;
 use Twig\TokenParser\AbstractTokenParser;
 
@@ -12,20 +12,20 @@ use Twig\TokenParser\AbstractTokenParser;
  *
  * Class ComponentTokenParser.
  *
- * @package Deniaz\Terrific\Twig\TokenParser
+ * @package Namics\Terrific\Twig\TokenParser
  */
 final class ComponentTokenParser extends AbstractTokenParser {
   /**
    * The context provider.
    *
-   * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */
   private $ctxProvider;
 
   /**
    * ComponentTokenParser constructor.
    *
-   * @param \Deniaz\Terrific\Provider\ContextProviderInterface $ctxProvider
+   * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
    *   The context provider.
    */
   public function __construct(ContextProviderInterface $ctxProvider) {

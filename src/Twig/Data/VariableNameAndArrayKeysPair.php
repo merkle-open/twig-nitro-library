@@ -1,13 +1,13 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\Data;
+namespace Namics\Terrific\Twig\Data;
 
 use Twig\Error\Error;
 
 /**
  * A key pair of variable name and array keys for it.
  *
- * @package Deniaz\Terrific\Twig\Data
+ * @package Namics\Terrific\Twig\Data
  */
 class VariableNameAndArrayKeysPair {
 

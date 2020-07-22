@@ -1,9 +1,9 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\TokenParser;
+namespace Namics\Test\Terrific\Twig\TokenParser;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 
 /**
  * Class ComponentTokenParser.

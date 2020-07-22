@@ -1,9 +1,9 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\Extension;
+namespace Namics\Terrific\Twig\Extension;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 use Twig\Extension\AbstractExtension;
 
 /**
@@ -12,18 +12,18 @@ use Twig\Extension\AbstractExtension;
  *
  * Class TerrificExtension.
  *
- * @package Deniaz\Terrific\Twig\Extension
+ * @package Namics\Terrific\Twig\Extension
  */
 final class TerrificExtension extends AbstractExtension {
   /**
-   * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */
   private $ctxProvider;
 
   /**
    * TerrificExtension constructor.
    *
-   * @param \Deniaz\Terrific\Provider\ContextProviderInterface $ctxProvider
+   * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
    *
    * @TODO: Default Provider?
    */

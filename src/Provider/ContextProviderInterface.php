@@ -1,6 +1,6 @@
 <?php
 
-namespace Deniaz\Terrific\Provider;
+namespace Namics\Terrific\Provider;
 
 use Twig\Compiler;
 use Twig\Node\Node;
@@ -10,7 +10,7 @@ use Twig\Node\Node;
  *
  * Interface ContextProviderInterface.
  *
- * @package Deniaz\Terrific\Provider
+ * @package Namics\Terrific\Provider
  */
 interface ContextProviderInterface {
 

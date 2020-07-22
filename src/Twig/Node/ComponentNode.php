@@ -1,11 +1,11 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\Node;
+namespace Namics\Terrific\Twig\Node;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\TerrificCompiler;
-use Deniaz\Terrific\Twig\TerrificCompilerInterface;
-use Deniaz\Terrific\Twig\Utility\ExpressionHandler;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\TerrificCompiler;
+use Namics\Terrific\Twig\TerrificCompilerInterface;
+use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
 use Twig\Error\SyntaxError;
 use Twig\Node\Expression\ConstantExpression;
@@ -19,13 +19,13 @@ use Twig\Node\NodeOutputInterface;
  *
  * Class ComponentNode.
  *
- * @package Deniaz\Terrific\Twig\Node
+ * @package Namics\Terrific\Twig\Node
  */
 final class ComponentNode extends Node implements NodeOutputInterface {
   /**
    * The context provider.
    *
-   * @var \Deniaz\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
    */
   private $ctxProvider;
 
@@ -35,7 +35,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * Should not be accessed directly by methods.
    * Except the getter.
    *
-   * @var |Deniaz\Terrific\Twig\Utility\ExpressionHandler
+   * @var |Namics\Terrific\Twig\Utility\ExpressionHandler
    */
   private $expressionHandler;
 
@@ -44,7 +44,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *
    * @param \Twig\Node\Node $component
    *   Expression representing the Component's Identifier.
-   * @param \Deniaz\Terrific\Provider\ContextProviderInterface $ctxProvider
+   * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
    *   Context Provider.
    * @param \Twig\Node\Node|null $data
    *   Expression representing the additional data.
@@ -99,7 +99,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   /**
    * Makes the data for the component available to it.
    *
-   * @param \Deniaz\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
+   * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
    */
   protected function createTerrificContext(TerrificCompilerInterface $terrificCompiler) {
@@ -123,7 +123,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * IMPORTANT: Has to be executed after the Terrific context was created
    * (ComponentNode::createTerrificContext).
    *
-   * @param \Deniaz\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
+   * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
    */
   protected function addGetTemplate(TerrificCompilerInterface $terrificCompiler) {
@@ -142,7 +142,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   /**
    * Compiles the component name.
    *
-   * @param \Deniaz\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
+   * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
    *
    * @throws \Twig\Error\SyntaxError

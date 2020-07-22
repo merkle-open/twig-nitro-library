@@ -1,8 +1,8 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\Node;
+namespace Namics\Test\Terrific\Twig\Node;
 
-use Deniaz\Terrific\Twig\Node\ComponentNode;
+use Namics\Terrific\Twig\Node\ComponentNode;
 use Twig_Node_Expression_Constant;
 use Twig_Node_Expression_Array;
 

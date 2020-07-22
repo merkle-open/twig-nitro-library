@@ -1,8 +1,8 @@
 <?php
 
-namespace Deniaz\Terrific\Twig;
+namespace Namics\Terrific\Twig;
 
-use Deniaz\Terrific\Twig\Utility\ExpressionHandler;
+use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
@@ -10,7 +10,7 @@ use Twig\Node\Expression\NameExpression;
 /**
  * Extends the base Twig compiler.
  *
- * @package \Deniaz\Terrific\Twig
+ * @package \Namics\Terrific\Twig
  */
 interface TerrificCompilerInterface {
 
@@ -63,7 +63,7 @@ interface TerrificCompilerInterface {
   /**
    * Returns the expression handler.
    *
-   * @return \Deniaz\Terrific\Twig\Utility\ExpressionHandler
+   * @return \Namics\Terrific\Twig\Utility\ExpressionHandler
    *   The expression handler.
    */
   public function getExpressionHandler(): ExpressionHandler;

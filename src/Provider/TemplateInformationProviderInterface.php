@@ -1,14 +1,14 @@
 <?php
 
-namespace Deniaz\Terrific\Provider;
+namespace Namics\Terrific\Provider;
 
 /**
  * Interface to describe Template Information.
  *
  * Interface TemplateLocatorInterface.
  *
- * @package Deniaz\Terrific
- * @see Deniaz\Terrific\Twig\LoaderTerrificLoader
+ * @package Namics\Terrific
+ * @see Namics\Terrific\Twig\LoaderTerrificLoader
  */
 interface TemplateInformationProviderInterface {
 

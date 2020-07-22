@@ -1,8 +1,8 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\Utility;
+namespace Namics\Terrific\Twig\Utility;
 
-use Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
+use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Error\Error;
@@ -10,7 +10,7 @@ use Twig\Error\Error;
 /**
  * Provides functionality to work with Twig expressions.
  *
- * @package Deniaz\Terrific\Twig\Utility
+ * @package Namics\Terrific\Twig\Utility
  */
 class ExpressionHandler {
 
@@ -32,7 +32,7 @@ class ExpressionHandler {
    * @param \Twig\Node\Expression\GetAttrExpression $expression
    *   The expression to get the pair for.
    *
-   * @return \Deniaz\Terrific\Twig\Data\VariableNameAndArrayKeysPair
+   * @return \Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair
    *   The pair.
    */
   public function buildGetAttrExpressionArrayKeyPair(GetAttrExpression $expression): VariableNameAndArrayKeysPair {

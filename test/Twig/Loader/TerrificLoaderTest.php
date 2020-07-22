@@ -1,9 +1,9 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\Loader;
+namespace Namics\Test\Terrific\Twig\Loader;
 
-use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
-use Deniaz\Terrific\Twig\Loader\TerrificLoader;
+use Namics\Terrific\Provider\TemplateInformationProviderInterface;
+use Namics\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
 
 /**

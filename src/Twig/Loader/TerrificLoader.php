@@ -1,8 +1,8 @@
 <?php
 
-namespace Deniaz\Terrific\Twig\Loader;
+namespace Namics\Terrific\Twig\Loader;
 
-use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
+use Namics\Terrific\Provider\TemplateInformationProviderInterface;
 use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
 
@@ -15,7 +15,7 @@ use Twig\Loader\FilesystemLoader;
  *
  * Class TerrificLoader.
  *
- * @package Deniaz\Terrific\Twig\Loader
+ * @package Namics\Terrific\Twig\Loader
  */
 final class TerrificLoader extends FilesystemLoader {
 
@@ -29,7 +29,7 @@ final class TerrificLoader extends FilesystemLoader {
   /**
    * TerrificLoader constructor.
    *
-   * @param \Deniaz\Terrific\Provider\TemplateInformationProviderInterface $locator
+   * @param \Namics\Terrific\Provider\TemplateInformationProviderInterface $locator
    *   The template locator.
    */
   public function __construct(TemplateInformationProviderInterface $locator) {
