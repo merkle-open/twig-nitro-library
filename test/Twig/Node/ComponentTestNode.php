@@ -2,21 +2,29 @@
 
 namespace Namics\Test\Terrific\Twig\Node;
 
+use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\Node\ComponentNode;
 use Twig_Node_Expression_Constant;
 use Twig_Node_Expression_Array;
+use PHPUnit\Framework\TestCase;
 
 /**
+ * Class ComponentNodeTest.
  *
+ * @package Namics\Test\Terrific\Twig\Node
+ * @coversDefaultClass \Namics\Terrific\Twig\Node\ComponentNode
  */
-class ComponentNodeTest extends \Twig_Test_NodeTestCase {
+class ComponentNodeTest extends TestCase {
 
   /**
-   *
+   * The the constructor.
    */
   public function testContructor() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expr, NULL, FALSE, 1);
+    $node = new ComponentNode($expr, $stub, NULL, TRUE, 0, NULL);
 
     $this->assertNull($node->getNode('data'));
     $this->assertEquals($expr, $node->getNode('component'));
@@ -26,14 +34,14 @@ class ComponentNodeTest extends \Twig_Test_NodeTestCase {
       new Twig_Node_Expression_Constant('foo', 1),
       new Twig_Node_Expression_Constant(TRUE, 1),
     ], 1);
-    $node = new ComponentNode($expr, $data, TRUE, 1);
+    $node = new ComponentNode($expr, $stub, $data, TRUE, 0, NULL);
 
     $this->assertEquals($data, $node->getNode('data'));
     $this->assertTrue($node->getAttribute('only'));
   }
 
   /**
-   *
+   * Get the tests.
    */
   public function getTests() {
     $tests = [
@@ -54,8 +62,11 @@ class ComponentNodeTest extends \Twig_Test_NodeTestCase {
    * @return array
    */
   private function getDefaultTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expr, NULL, FALSE, 1);
+    $node = new ComponentNode($expr, $stub, NULL, TRUE, 0, NULL);
 
     return [
       $node,
@@ -72,8 +83,11 @@ EOF
    * @return array
    */
   private function getDefaultOnlyTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expr, NULL, TRUE, 1);
+    $node = new ComponentNode($expr, $stub, NULL, TRUE, 0, NULL);
 
     return [
       $node,
@@ -90,12 +104,15 @@ EOF
    * @return array
    */
   private function getDataObjectTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
     $data = new Twig_Node_Expression_Array([
       new Twig_Node_Expression_Constant('foo', 1),
       new Twig_Node_Expression_Constant('bar', 1),
     ], 1);
-    $node = new ComponentNode($expr, $data, FALSE, 1);
+    $node = new ComponentNode($expr, $stub, $data, TRUE, 0, NULL);
 
     return [
       $node,
@@ -112,12 +129,15 @@ EOF
    * @return array
    */
   private function getDataObjectOnlyTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
     $data = new Twig_Node_Expression_Array([
       new Twig_Node_Expression_Constant('foo', 1),
       new Twig_Node_Expression_Constant('bar', 1),
     ], 1);
-    $node = new ComponentNode($expr, $data, TRUE, 1);
+    $node = new ComponentNode($expr, $stub, $data, TRUE, 0, NULL);
 
     return [
       $node,
@@ -134,9 +154,12 @@ EOF
    * @return array
    */
   private function getVariantTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
     $data = new Twig_Node_Expression_Constant('example-foo', 1);
-    $node = new ComponentNode($expr, $data, FALSE, 1);
+    $node = new ComponentNode($expr, $stub, $data, TRUE, 0, NULL);
 
     return [
       $node,
@@ -153,9 +176,12 @@ EOF
    * @TODO
    */
   private function getVariantOnlyTest() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
+    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+
     $expr = new Twig_Node_Expression_Constant('Example', 1);
     $data = new Twig_Node_Expression_Constant('example-foo', 1);
-    $node = new ComponentNode($expr, $data, TRUE, 1);
+    $node = new ComponentNode($expr, $stub, $data, TRUE, 0, NULL);
 
     return [
       $node,

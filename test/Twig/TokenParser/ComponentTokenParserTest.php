@@ -4,19 +4,25 @@ namespace Namics\Test\Terrific\Twig\TokenParser;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
+use PHPUnit\Framework\TestCase;
 
 /**
- * Class ComponentTokenParser.
+ * Class ComponentTokenParserTest.
  *
  * @TODO Maybe implement test for the Parser.
+ *
+ * @package Namics\Test\Terrific\Twig\TokenParser
+ * @coversDefaultClass \Namics\Terrific\Twig\TokenParser\ComponentTokenParser
  */
-class ComponentTokenParserTest extends \PHPUnit_Framework_TestCase {
+class ComponentTokenParserTest extends TestCase {
 
   /**
-   *
+   * Test the tag.
    */
   public function testGetTag() {
+    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
     $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
+    /** @var \Namics\Terrific\Twig\TokenParser\ComponentTokenParser $parser */
     $parser = new ComponentTokenParser($stub);
     $this->assertEquals('component', $parser->getTag());
   }

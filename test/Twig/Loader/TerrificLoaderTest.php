@@ -5,14 +5,18 @@ namespace Namics\Test\Terrific\Twig\Loader;
 use Namics\Terrific\Provider\TemplateInformationProviderInterface;
 use Namics\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
+use PHPUnit\Framework\TestCase;
 
 /**
+ * Class TerrificLoaderTest.
  *
+ * @package Namics\Test\Terrific\Twig\Loader
+ * @coversDefaultClass \Namics\Terrific\Twig\Loader\TerrificLoader
  */
-class TerrificLoaderTest extends \PHPUnit_Framework_TestCase {
+class TerrificLoaderTest extends TestCase {
 
   /**
-   *
+   * Test the paths.
    */
   public function testPaths() {
     $paths = [
@@ -32,6 +36,7 @@ class TerrificLoaderTest extends \PHPUnit_Framework_TestCase {
       ->method('getFileExtension')
       ->willReturn('html');
 
+    /** @var \Namics\Terrific\Twig\Loader\TerrificLoader $loader */
     $loader = new TerrificLoader($stub);
 
     $this->assertEquals($paths, $loader->getPaths());
