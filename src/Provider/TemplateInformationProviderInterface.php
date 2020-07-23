@@ -18,7 +18,7 @@ interface TemplateInformationProviderInterface {
    * @return array
    *   The path.
    */
-  public function getPaths();
+  public function getPaths(): array;
 
   /**
    * Returns the template's file extension.
@@ -26,6 +26,6 @@ interface TemplateInformationProviderInterface {
    * @return string
    *   The file extension.
    */
-  public function getFileExtension();
+  public function getFileExtension(): string;
 
 }

@@ -37,14 +37,14 @@ final class TerrificExtension extends AbstractExtension {
   /**
    * {@inheritdoc}
    */
-  public function getName() {
+  public function getName(): string {
     return 'terrific';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getTokenParsers() {
+  public function getTokenParsers(): array {
     return [
       new ComponentTokenParser($this->ctxProvider),
     ];

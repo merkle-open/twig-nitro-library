@@ -5,24 +5,24 @@ namespace Namics\Terrific\Config;
 use DomainException;
 
 /**
- * ConfigReader reads Terrific Nitro's config.json and parses essential information such as component paths and the view
- * file extension.
- *
  * Class ConfigReader.
+ *
+ * Reads Terrific Nitro's config.json and parses essential information such as component paths and the view
+ * file extension.
  *
  * @package Namics\Terrific\Config
  */
 final class ConfigReader {
 
   /**
-   * The Configuration's Filename.
+   * The Terrific Nitro's config file.
    *
    * @var string
    */
-  const FILE_NAME = 'config.json';
+  const TERRIFIC_NITRO_FILE_NAME = 'config.json';
 
   /**
-   * The config.
+   * The Terrific Nitro's config.
    *
    * @var array
    */
@@ -32,35 +32,51 @@ final class ConfigReader {
    * ConfigReader constructor.
    *
    * @param string $terrificDir
-   *   Path to Terrific's Frontend Directory.
+   *   Path to Terrific's frontend directory.
    *
    * @throws DomainException Thrown if Configuration could not be loaded correctly.
    */
   public function __construct($terrificDir) {
-    $path = $terrificDir . '/' . self::FILE_NAME;
+    $path = $terrificDir . '/' . self::TERRIFIC_NITRO_FILE_NAME;
+    $this->readConfig($path);
+  }
 
+  /**
+   * @deprecated Use getConfig() instead.
+   */
+  public function read(): array {
+    return $this->getConfig();
+  }
+
+  /**
+   * Returns Terrific Nitro's config.
+   *
+   * @return array
+   *   Terrific Nitro config.
+   */
+  public function getConfig(): array {
+    return $this->config;
+  }
+
+  /**
+   * Read Terrific's config.
+   *
+   * @param string $path
+   *   The path to the config file.
+   */
+  protected function readConfig(string $path) {
     if (is_readable($path)) {
       try {
         $this->config = json_decode(file_get_contents($path), TRUE);
 
         if ($this->config === NULL && json_last_error() !== JSON_ERROR_NONE) {
-          throw new DomainException('Terrific Config could not be parsed.');
+          throw new DomainException('Terrific config could not be parsed.');
         }
       }
       catch (DomainException $e) {
         throw $e;
       }
     }
-  }
-
-  /**
-   * Returns the Configuration.
-   *
-   * @return array
-   *   The config.
-   */
-  public function read() {
-    return $this->config;
   }
 
 }

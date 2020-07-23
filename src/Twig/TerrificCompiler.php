@@ -142,20 +142,23 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *   when the given variable does not exist.
    */
   public function compileAndMergeVariableToContext(VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair, ?string $variableDoesNotExistErrorMessage = NULL): void {
+    /** @var \Twig\Compiler $twigCompiler */
+    $twigCompiler = $this->getTwigCompiler();
+
     $contextArrayKeys = $variableNameAndArrayKeysPair->toTwigContextArrayKeysString();
 
     if ($variableDoesNotExistErrorMessage === NULL) {
       $variableDoesNotExistErrorMessage = addslashes('The variable ' . $variableNameAndArrayKeysPair->toTwigVariableString() . ' does not exist. Could not compile it to the Twig context.');
     }
 
-    $this->getTwigCompiler()
+    $twigCompiler
       ->raw("\n")->write('')
       ->raw('if (')
       ->raw('isset(');
 
     $this->compileAsContextVariable($variableNameAndArrayKeysPair, '$context');
 
-    $this->getTwigCompiler()
+    $twigCompiler
       ->raw(')')
       ->raw(') {')
       ->raw("\n")->write('')->write('')
@@ -163,7 +166,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
 
     $this->compileAsContextVariable($variableNameAndArrayKeysPair, '$context');
 
-    $this->getTwigCompiler()
+    $twigCompiler
       ->raw(');')
       ->raw("\n")->write('')
       ->raw('} else {')

@@ -36,7 +36,8 @@ final class ComponentTokenParser extends AbstractTokenParser {
   /**
    * {@inheritdoc}
    */
-  public function parse(Token $token) {
+  public function parse(Token $token): ComponentNode {
+    /** @var \Twig\Node\Expression\ConstantExpression $component */
     $component = $this->parser->getExpressionParser()->parseExpression();
     list($data, $only) = $this->parseArguments();
 
@@ -49,18 +50,21 @@ final class ComponentTokenParser extends AbstractTokenParser {
    * @return array
    *   Array containing data and only flag.
    */
-  protected function parseArguments() {
-    $stream = $this->parser->getStream();
-
+  protected function parseArguments(): array {
     $data = NULL;
     $only = FALSE;
 
+    /** @var \Twig\TokenStream $stream */
+    $stream = $this->parser->getStream();
+
+    // BLOCK_END_TYPE = delimiter for blocks.
     if ($stream->test(Token::BLOCK_END_TYPE)) {
       $stream->expect(Token::BLOCK_END_TYPE);
 
       return [$data, $only];
     }
 
+    // NAME_TYPE = name expression.
     if ($stream->test(Token::NAME_TYPE, 'only')) {
       $only = TRUE;
       $stream->next();
@@ -69,6 +73,7 @@ final class ComponentTokenParser extends AbstractTokenParser {
       return [$data, $only];
     }
 
+    /** @var \Twig\Node\Expression\ArrayExpression $data */
     $data = $this->parser->getExpressionParser()->parseExpression();
 
     if ($stream->test(Token::NAME_TYPE, 'only')) {
@@ -84,7 +89,7 @@ final class ComponentTokenParser extends AbstractTokenParser {
   /**
    * {@inheritdoc}
    */
-  public function getTag() {
+  public function getTag(): string {
     return 'component';
   }
 

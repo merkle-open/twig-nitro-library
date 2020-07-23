@@ -62,7 +62,8 @@ final class ComponentNode extends Node implements NodeOutputInterface {
         Node $data = NULL,
         $only = FALSE,
         $lineno,
-        $tag = NULL) {
+        $tag = NULL
+  ) {
     parent::__construct(
     ['component' => $component, 'data' => $data],
     ['only' => (bool) $only],
@@ -79,10 +80,14 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * @param \Twig\Compiler $compiler
    *   The Twig compiler.
    */
-  public function compile(Compiler $compiler) {
+  public function compile(Compiler $compiler): void {
+    /** @var \Namics\Terrific\Twig\TerrificCompiler $terrificCompiler */
     $terrificCompiler = TerrificCompiler::create($compiler);
 
-    $terrificCompiler->getTwigCompiler()->addDebugInfo($this);
+    /** @var \Twig\Compiler $twigCompiler */
+    $twigCompiler = $terrificCompiler->getTwigCompiler();
+
+    $twigCompiler->addDebugInfo($this);
 
     // Create data.
     $this->createTerrificContext($terrificCompiler);
@@ -90,11 +95,11 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     // Load component template.
     $this->addGetTemplate($terrificCompiler);
 
-    $terrificCompiler->getTwigCompiler()
+    $twigCompiler
       ->raw('->display(' . ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ');')
       ->raw("\n\n");
 
-    $terrificCompiler->getTwigCompiler()->addDebugInfo($this->getNode('component'));
+    $twigCompiler->addDebugInfo($this->getNode('component'));
   }
 
   /**
@@ -103,17 +108,20 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
    */
-  protected function createTerrificContext(TerrificCompilerInterface $terrificCompiler) {
-    $terrificCompiler->getTwigCompiler()
+  protected function createTerrificContext(TerrificCompilerInterface $terrificCompiler): void {
+    /** @var \Twig\Compiler $twigCompiler */
+    $twigCompiler = $terrificCompiler->getTwigCompiler();
+
+    $twigCompiler
       ->write('')
       ->raw(ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ' = $context;')
       ->raw("\n");
 
     $this->ctxProvider->compile(
-    $terrificCompiler->getTwigCompiler(),
-    $this->getNode('component'),
-    $this->getNode('data'),
-    $this->getAttribute('only')
+      $twigCompiler,
+      $this->getNode('component'),
+      $this->getNode('data'),
+      $this->getAttribute('only')
     );
   }
 
@@ -127,12 +135,15 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
    */
-  protected function addGetTemplate(TerrificCompilerInterface $terrificCompiler) {
-    $terrificCompiler->getTwigCompiler()->write('$this->loadTemplate(');
+  protected function addGetTemplate(TerrificCompilerInterface $terrificCompiler): void {
+    /** @var \Twig\Compiler $twigCompiler */
+    $twigCompiler = $terrificCompiler->getTwigCompiler();
+
+    $twigCompiler->write('$this->loadTemplate(');
 
     $this->compileComponentName($terrificCompiler);
 
-    $terrificCompiler->getTwigCompiler()
+    $twigCompiler
       ->raw(', ')
       ->repr($this->getTemplateName())
       ->raw(', ')
@@ -150,23 +161,25 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *   If the node name uses an unsupported format.
    */
   protected function compileComponentName(TerrificCompilerInterface $terrificCompiler): void {
+    $node = $this->getNode('component');
+
     /* If a variable is used for component name,
     use it's value (is inside Terrifc context "$tContext") for template name.
     E.g. {% component myTwigComponentName { dataItem: 'my string' } %} */
-    if ($this->getNode('component') instanceof NameExpression) {
-      $terrificCompiler->compileNameExpressionAsContextVariable($this->getNode('component'));
+    if ($node instanceof NameExpression) {
+      $terrificCompiler->compileNameExpressionAsContextVariable($node);
     }
     /* If a static string (constant) is used for component name,
     compile it (prints it).
     E.g. {% component 'myComponent' { dataItem: 'my string' } %} */
-    elseif ($this->getNode('component') instanceof ConstantExpression) {
-      $terrificCompiler->getTwigCompiler()->subcompile($this->getNode('component'));
+    elseif ($node instanceof ConstantExpression) {
+      $terrificCompiler->getTwigCompiler()->subcompile($node);
     }
     /* If an object object/array used for component name,
     use it's value (is inside Terrifc context "$tContext") for template name.
     E.g. {% component myTwigObject.anObjectProperty.myTwigComponentName { dataItem: 'my string' } %} */
-    elseif ($this->getNode('component') instanceof GetAttrExpression) {
-      $terrificCompiler->compileGetAttrExpressionAsContextVariable($this->getNode('component'));
+    elseif ($node instanceof GetAttrExpression) {
+      $terrificCompiler->compileGetAttrExpressionAsContextVariable($node);
     }
     else {
       throw new SyntaxError('An unsupported data type was used for name to call a Twig Nitro component.');

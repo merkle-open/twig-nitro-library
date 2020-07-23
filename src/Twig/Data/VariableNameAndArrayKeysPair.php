@@ -48,7 +48,7 @@ class VariableNameAndArrayKeysPair {
    * @param array $arrayKeys
    *   Array of array keys for variable.
    */
-  public static function create(string $variableName, array $arrayKeys) {
+  public static function create(string $variableName, array $arrayKeys): self {
     return new self($variableName, $arrayKeys);
   }
 
@@ -58,7 +58,7 @@ class VariableNameAndArrayKeysPair {
    * @param string $variableName
    *   The variable name.
    */
-  public static function createVariable(string $variableName) {
+  public static function createVariable(string $variableName): self {
     return new self($variableName);
   }
 
