@@ -149,7 +149,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
     }
 
     $this->getTwigCompiler()
-      ->raw("\n")->addIndentation()
+      ->raw("\n")->write('')
       ->raw('if (')
       ->raw('isset(');
 
@@ -158,20 +158,20 @@ class TerrificCompiler implements TerrificCompilerInterface {
     $this->getTwigCompiler()
       ->raw(')')
       ->raw(') {')
-      ->raw("\n")->addIndentation()->addIndentation()
+      ->raw("\n")->write('')->write('')
       ->raw(ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ' = array_merge(' . ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ', ');
 
     $this->compileAsContextVariable($variableNameAndArrayKeysPair, '$context');
 
     $this->getTwigCompiler()
       ->raw(');')
-      ->raw("\n")->addIndentation()
+      ->raw("\n")->write('')
       ->raw('} else {')
-      ->raw("\n")->addIndentation()->addIndentation()
+      ->raw("\n")->write('')->write('')
       ->raw('throw new \Twig\Error\Error("')
       ->raw($variableDoesNotExistErrorMessage)
       ->raw('");')
-      ->raw("\n")->addIndentation()
+      ->raw("\n")->write('')
       ->raw('}')
       ->raw("\n\n");
   }

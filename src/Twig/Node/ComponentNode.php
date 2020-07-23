@@ -105,7 +105,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    */
   protected function createTerrificContext(TerrificCompilerInterface $terrificCompiler) {
     $terrificCompiler->getTwigCompiler()
-      ->addIndentation()
+      ->write('')
       ->raw(ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE . ' = $context;')
       ->raw("\n");
 
@@ -134,9 +134,9 @@ final class ComponentNode extends Node implements NodeOutputInterface {
 
     $terrificCompiler->getTwigCompiler()
       ->raw(', ')
-      ->repr($terrificCompiler->getTwigCompiler()->getFilename())
+      ->repr($this->getTemplateName())
       ->raw(', ')
-      ->repr($this->getLine())
+      ->repr($this->getTemplateLine())
       ->raw(')');
   }
 

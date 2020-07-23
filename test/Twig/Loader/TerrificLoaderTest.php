@@ -24,6 +24,7 @@ class TerrificLoaderTest extends TestCase {
       __DIR__ . '/Fixtures/molecules',
     ];
 
+    /** @var \Namics\Terrific\Provider\TemplateInformationProviderInterface|\PHPUnit\Framework\MockObject\MockObject $stub */
     $stub = $this
       ->getMockBuilder(TemplateInformationProviderInterface::class)
       ->getMock();
