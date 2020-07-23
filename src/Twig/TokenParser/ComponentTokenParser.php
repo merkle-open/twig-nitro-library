@@ -15,10 +15,11 @@ use Twig\TokenParser\AbstractTokenParser;
  * @package Namics\Terrific\Twig\TokenParser
  */
 final class ComponentTokenParser extends AbstractTokenParser {
+
   /**
    * The context provider.
    *
-   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
   private $ctxProvider;
 

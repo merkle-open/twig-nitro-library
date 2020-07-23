@@ -13,15 +13,20 @@ use DomainException;
  * @package Namics\Terrific\Config
  */
 final class ConfigReader {
+
   /**
-     * @const string FILE_NAME The Configuration's Filename.
-     */
+   * The Configuration's Filename.
+   *
+   * @var string
+   */
   const FILE_NAME = 'config.json';
 
   /**
+   * The config.
+   *
    * @var array
    */
-  private $config = NULL;
+  private $config = [];
 
   /**
    * ConfigReader constructor.
@@ -52,6 +57,7 @@ final class ConfigReader {
    * Returns the Configuration.
    *
    * @return array
+   *   The config.
    */
   public function read() {
     return $this->config;

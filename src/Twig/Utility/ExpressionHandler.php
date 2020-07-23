@@ -3,6 +3,7 @@
 namespace Namics\Terrific\Twig\Utility;
 
 use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
+use Twig\Node\Node;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
 use Twig\Error\Error;
@@ -29,13 +30,13 @@ class ExpressionHandler {
   /**
    * Generates a variable name and array key pair.
    *
-   * @param \Twig\Node\Expression\GetAttrExpression $expression
+   * @param \Twig\Node\Node $expression
    *   The expression to get the pair for.
    *
    * @return \Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair
    *   The pair.
    */
-  public function buildGetAttrExpressionArrayKeyPair(GetAttrExpression $expression): VariableNameAndArrayKeysPair {
+  public function buildGetAttrExpressionArrayKeyPair(Node $expression): VariableNameAndArrayKeysPair {
     $arrayKeys = $this->buildGetAttrExpressionArrayKeys($expression);
 
     // Get the variable name, it's the first array item.
@@ -52,13 +53,13 @@ class ExpressionHandler {
    *
    * Pointing to the value location of given expression in the context.
    *
-   * @param \Twig\Node\Expression\GetAttrExpression $expression
+   * @param \Twig\Node\Node $expression
    *   The expression to get the context array keys for.
    *
    * @return string[]
    *   Array with array keys.
    */
-  public function buildGetAttrExpressionArrayKeys(GetAttrExpression $expression): array {
+  public function buildGetAttrExpressionArrayKeys(Node $expression): array {
     if ($this->isNestedObject($expression)) {
       $dataVariableName = $expression->getNode('attribute')->getAttribute('value');
       $childExpression = $expression->getNode('node');
@@ -82,14 +83,14 @@ class ExpressionHandler {
   /**
    * Checks if given Twig expression is a nested object.
    *
-   * @param \Twig\Node\Expression\GetAttrExpression $expression
+   * @param \Twig\Node\Node $expression
    *   The Twig expression to check.
    *
    * @return bool
    *   TRUE if nested object.
    *   Otherwise FALSE.
    */
-  public function isNestedObject(GetAttrExpression $expression): bool {
+  public function isNestedObject(Node $expression): bool {
     $isNestedObject = $expression->hasNode('node') && $expression->getNode('node') instanceof GetAttrExpression;
 
     return $isNestedObject;

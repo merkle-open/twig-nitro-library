@@ -22,10 +22,11 @@ use Twig\Node\NodeOutputInterface;
  * @package Namics\Terrific\Twig\Node
  */
 final class ComponentNode extends Node implements NodeOutputInterface {
+
   /**
    * The context provider.
    *
-   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
   private $ctxProvider;
 
@@ -35,7 +36,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * Should not be accessed directly by methods.
    * Except the getter.
    *
-   * @var |Namics\Terrific\Twig\Utility\ExpressionHandler
+   * @var \Namics\Terrific\Twig\Utility\ExpressionHandler
    */
   private $expressionHandler;
 
@@ -177,6 +178,8 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *
    * Pointing to the value location of given expression in the context.
    *
+   * TODO: This method is never used. Check!
+   *
    * @param \Twig\Node\Expression\GetAttrExpression $expression
    *   The expression to get the context array keys for.
    *
@@ -187,6 +190,8 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     if ($this->getExpressionHandler()->isNestedObject($expression)) {
       $dataVariableName = $expression->getNode('attribute')->getAttribute('value');
       $childExpression = $expression->getNode('node');
+
+      // TODO: undefined method buildGetAttrExpressionArrayKeys(). Add DI if this method is necessary.
       $dataVariableArrayKeys = $this->buildGetAttrExpressionArrayKeys($childExpression);
 
       $dataExpressionArrayKeys = $dataVariableArrayKeys;

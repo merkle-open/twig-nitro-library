@@ -29,7 +29,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    * Should not be accessed directly by methods.
    * Except the getter.
    *
-   * @var |Namics\Terrific\Twig\Utility\ExpressionHandler
+   * @var \Namics\Terrific\Twig\Utility\ExpressionHandler
    */
   private $expressionHandler;
 

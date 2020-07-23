@@ -3,11 +3,11 @@
 namespace Namics\Terrific\Provider;
 
 /**
+ * Interface TemplateInformationProviderInterface.
+ *
  * Interface to describe Template Information.
  *
- * Interface TemplateLocatorInterface.
- *
- * @package Namics\Terrific
+ * @package Namics\Terrific\Provider
  * @see Namics\Terrific\Twig\LoaderTerrificLoader
  */
 interface TemplateInformationProviderInterface {
@@ -16,6 +16,7 @@ interface TemplateInformationProviderInterface {
    * Returns a list of paths where templates might be stored.
    *
    * @return array
+   *   The path.
    */
   public function getPaths();
 
@@ -23,6 +24,7 @@ interface TemplateInformationProviderInterface {
    * Returns the template's file extension.
    *
    * @return string
+   *   The file extension.
    */
   public function getFileExtension();
 

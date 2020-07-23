@@ -15,8 +15,11 @@ use Twig\Extension\AbstractExtension;
  * @package Namics\Terrific\Twig\Extension
  */
 final class TerrificExtension extends AbstractExtension {
+
   /**
-   * @var \Namics\Terrific\Provider\ContextProviderInterfaceContextVariableProvider
+   * The context provider.
+   *
+   * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
   private $ctxProvider;
 
