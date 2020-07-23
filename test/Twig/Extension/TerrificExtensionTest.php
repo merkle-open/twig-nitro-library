@@ -5,7 +5,7 @@ namespace Namics\Test\Terrific\Twig\Extension;
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\Extension\TerrificExtension;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
-use PHPUnit\Framework\TestCase;
+use Namics\Test\Terrific\Twig\TwigTestBase;
 
 /**
  * Class TerrificExtensionTest.
@@ -13,32 +13,30 @@ use PHPUnit\Framework\TestCase;
  * @package Namics\Test\Terrific\Twig\Extension
  * @coversDefaultClass \Namics\Terrific\Twig\Extension\TerrificExtension
  */
-class TerrificExtensionTest extends TestCase {
+class TerrificExtensionTest extends TwigTestBase {
 
   /**
    * Test extension name return value.
+   *
+   * @covers ::getName
    */
-  public function testReturnsExtensionName() {
-    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
-    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-    /** @var \Namics\Terrific\Twig\Extension\TerrificExtension $ext */
-    $ext = new TerrificExtension($stub);
-    $name = $ext->getName();
+  public function testGetName(): void {
+    /** @var \Namics\Terrific\Twig\Extension\TerrificExtension $twigExtension */
+    $twigExtension = $this->getTwigExtension();
 
-    $this->assertEquals('terrific', $name);
+    $this->assertEquals('terrific', $twigExtension->getName(), 'Returned Twig extension name is not identical.');
   }
 
   /**
    * Test component token parser.
+   *
+   * @covers ::getTokenParsers
    */
-  public function testReturnsComponentTokenParser() {
-    /** @var \Namics\Terrific\Provider\ContextProviderInterface $stub */
-    $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-    /** @var \Namics\Terrific\Twig\Extension\TerrificExtension $ext */
-    $ext = new TerrificExtension($stub);
-    $parsers = $ext->getTokenParsers();
+  public function testGetTokenParsers(): void {
+    /** @var \Namics\Terrific\Twig\Extension\TerrificExtension $twigExtension */
+    $twigExtension = $this->getTwigExtension();
 
-    $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
+    $this->assertContainsOnlyInstancesOf(ComponentTokenParser::class, $twigExtension->getTokenParsers(), 'Token parser does not include only class ComponentTokenParser.');
   }
 
 }

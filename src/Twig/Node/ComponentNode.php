@@ -81,7 +81,6 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *   The Twig compiler.
    */
   public function compile(Compiler $compiler): void {
-    /** @var \Namics\Terrific\Twig\TerrificCompiler $terrificCompiler */
     $terrificCompiler = TerrificCompiler::create($compiler);
 
     /** @var \Twig\Compiler $twigCompiler */
