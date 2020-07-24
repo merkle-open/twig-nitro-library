@@ -29,9 +29,12 @@ class ComponentNodeTest extends TwigTestBase {
     $ctxProvider = $this->getContextProviderMock();
 
     $expression = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expression, $ctxProvider, NULL, FALSE, 0, NULL);
+    $data = new Twig_Node_Expression_Array([], 1);
+    $node = new ComponentNode($expression, $ctxProvider, $data, FALSE, 0, NULL);
 
-    $this->assertNull($node->getNode('data'), 'The node data is not Null.');
+    /** @var \Twig\Node\Expression\ArrayExpression $nodeData */
+    $nodeData = $node->getNode('data');
+    $this->assertEquals($nodeData->count(), 0, 'The node data is not empty.');
     $this->assertEquals($expression, $node->getNode('component'), 'The expressions are not identical.');
     $this->assertFalse($node->getAttribute('only'), 'The "only" attribute is not FALSE.');
 
@@ -69,7 +72,8 @@ class ComponentNodeTest extends TwigTestBase {
    */
   private function getDefaultTest() {
     $expr = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), NULL, FALSE, 1, NULL);
+    $data = new Twig_Node_Expression_Array([], 1);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, FALSE, 1, NULL);
 
     return [
       'node' => $node,
@@ -90,7 +94,8 @@ EOF
    */
   private function getDefaultOnlyTest() {
     $expr = new Twig_Node_Expression_Constant('Example', 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), NULL, TRUE, 1, NULL);
+    $data = new Twig_Node_Expression_Array([], 1);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, TRUE, 1, NULL);
 
     return [
       'node' => $node,

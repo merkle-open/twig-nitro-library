@@ -59,7 +59,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   public function __construct(
         Node $component,
         ContextProviderInterface $ctxProvider,
-        Node $data = NULL,
+        Node $data,
         $only = FALSE,
         $lineno,
         $tag = NULL

@@ -35,6 +35,6 @@ interface ContextProviderInterface {
    *
    * @return mixed
    */
-  public function compile(Compiler $compiler, Node $component, Node $dataVariant = NULL, bool $only);
+  public function compile(Compiler $compiler, Node $component, Node $dataVariant, bool $only);
 
 }
