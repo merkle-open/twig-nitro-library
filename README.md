@@ -116,6 +116,13 @@ TODO: More on that.
 ### ConfigReader
 Reads nitro's `config.json` and parses essential information such as the component paths and file extension.
 
+### CI
+This project uses GitHub actions.
+#### Run locally
+* Install [nektos/act](https://github.com/nektos/act).
+* Open terminal, go to project directory.
+* Run `act -P ubuntu-latest=shivammathur/node:latest` as described [here](https://github.com/shivammathur/setup-php#local-testing-setup).
+
 ## Credits
 + [Twig Template Engine](http://twig.sensiolabs.org/)
 + [Terrific](http://terrifically.org/)
