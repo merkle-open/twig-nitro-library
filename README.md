@@ -1,17 +1,17 @@
-# Terrific Twig
-[![Build Status](https://travis-ci.org/namics/terrific-twig.svg?branch=master)](https://travis-ci.org/namics/terrific-twig)
-[![Latest Stable Version](https://poser.pugx.org/namics/terrific-twig/v/stable.svg)](https://packagist.org/packages/namics/terrific-twig)
-[![Total Downloads](https://poser.pugx.org/namics/terrific-twig/downloads.svg)](https://packagist.org/packages/namics/terrific-twig)
-[![License](https://poser.pugx.org/namics/terrific-twig/license.svg)](https://packagist.org/packages/namics/terrific-twig)
+# Terrific Twigs
+![Build Status](https://github.com/namics/twig-nitro-library/workflows/workflow/badge.svg)
+![Latest version](https://img.shields.io/github/v/release/namics/twig-nitro-library)
+![License](https://img.shields.io/github/license/namics/twig-nitro-library)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/namics/twig-nitro-library?color=%23787CB5)
 
 Extension to embrace the [Terrific](https://github.com/brunschgi/terrificjs) frontend methodology in [Twig](http://twig.sensiolabs.org/).
 
-Currently it adds a custom `component` tag to Twig which mimics [Nitro](https://github.com/namics/generator-nitro)'s handlebars helper.
+Adds a custom `component` tag to Twig which mimics the [Nitro](https://github.com/namics/generator-nitro) handlebars helper.
 
 ## Installation
 Using [composer](https://packagist.org/packages/namics/terrific-twig):
 
-```bash
+```shell script
 $ composer require namics/terrific-twig
 ```
 
@@ -31,7 +31,7 @@ class TemplateInformationProvider implements TemplateInformationProviderInterfac
     {
       return []; // List of path where Terrific Components can be found, e.g. (/var/www/example.com/frontend/components)
     }
-    
+
     public function getFileExtension()
     {
       $fileExtension = 'html.twig';
@@ -68,28 +68,29 @@ Step 5: Profit!
 
 ## Usage
 ```twig
-{# Includes the component, component's default data is merged with the context #}
-{% component 'Example' %}
-
-{# Includes the component, the default data is injected as a child context #}
-{% component 'Example' only %}
-
-{# Includes the component, but a variantion of the component data is merged with the context #}
-{% component 'Example' 'example-variant' %}
-
-{# Includes the component, but a variantion of the component data is injected as a child context #}
-{% component 'Example' 'example-variant' only %}
-
 {# Includes the component, data object is merged with the context #}
 {% component 'Example' { title: 'Inject an Object' } %}
 
 {# Includes the component, data object is injected as a child context #}
 {% component 'Example' { title: 'Inject an Object' } only %}
+
+{# Includes the component, object variable data is merged with the context #}
+{% set fooComponentData = { title: 'Inject an Object' } %}
+{% component 'Example' fooComponentData %}
+
+{# Includes the component with name contained by string variable, data object is merged with the context #}
+{% set fooComponentName = 'Example' %}
+{% component fooComponentName { title: 'Inject an Object' } %}
+
+{# Includes the component with name contained by string variable, object variable data is merged with the context #}
+{% set fooComponentName = 'Example' %}
+{% set fooComponentData = { title: 'Inject an Object' } %}
+{% component fooComponentName fooComponentData %}
 ```
 
 ## Documentation
 ### Extension
-The extension provides terrific extensions to Twig. Currently the extension provides the `ComponentTokenParser`.
+The extension provides terrific extensions to Twig. Currently, the extension provides the `ComponentTokenParser`.
 
 ### Token Parser
 The token parser contains the parsing step for the component tag. It tokenizes the stream to different nodes (`component`, `data`) and an attribute (`only`).
@@ -111,6 +112,12 @@ TODO: More on that.
 
 ### ConfigReader
 Reads nitro's `config.json` and parses essential information such as the component paths and file extension.
+
+### Tests
+Tests can be run by using the following command:
+```shell script
+composer run-scrip tests
+```
 
 ### CI
 This project uses GitHub actions.

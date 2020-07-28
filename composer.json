@@ -16,6 +16,11 @@
             "name": "Robert Vogt",
             "email": "robert.vogt@namics.com",
             "homepage": "https://github.com/deniaz"
+        },
+        {
+            "name": "Namics",
+            "email": "drupal@namics.com",
+            "homepage": "https://github.com/namics"
         }
     ],
     "autoload": {
@@ -30,5 +35,10 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
+    },
+    "scripts": {
+        "tests": [
+            "vendor/bin/phpunit"
+        ]
     }
 }
