@@ -5,7 +5,6 @@ namespace Namics\Test\Terrific\Twig\Loader;
 use Namics\Terrific\Provider\TemplateInformationProviderInterface;
 use Namics\Terrific\Twig\Loader\TerrificLoader;
 use Exception;
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,6 +45,7 @@ class TerrificLoaderTest extends TestCase {
    * Get the terrific loader.
    *
    * @return \Namics\Terrific\Twig\Loader\TerrificLoader
+   *   The Terrific loader.
    */
   protected function getTerrificLoader(): TerrificLoader {
     return new TerrificLoader($this->getTemplateInformationProviderMock());
@@ -55,21 +55,17 @@ class TerrificLoaderTest extends TestCase {
    * Test the paths.
    */
   public function testPaths(): void {
-    /** @var \Namics\Terrific\Twig\Loader\TerrificLoader $loader */
     $loader = $this->getTerrificLoader();
 
     $this->assertEquals(self::PATHS, $loader->getPaths(), 'Paths are not identical.');
 
-    /** @var \Twig\Source $source */
     $source = $loader->getSourceContext('molecule');
     $this->assertEquals("--molecule_content--\n", $source->getCode(), 'Molecule content is not identical.');
 
-    /** @var \Twig\Source $source */
     $source = $loader->getSourceContext('atom');
     $this->assertEquals("--atom_content--\n", $source->getCode(), 'Atom content is not identical.');
 
     // Check if the cache is invoked.
-    /** @var \Twig\Source $source */
     $source = $loader->getSourceContext('atom');
     $this->assertEquals("--atom_content--\n", $source->getCode(), 'Cache for atom content was not invoked.');
 

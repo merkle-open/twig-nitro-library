@@ -34,7 +34,10 @@ final class ComponentTokenParser extends AbstractTokenParser {
   }
 
   /**
-   * {@inheritdoc}
+   * Creates
+   *
+   * @return \Namics\Terrific\Twig\Node\ComponentNode
+   *   The component node.
    */
   public function parse(Token $token): ComponentNode {
     /** @var \Twig\Node\Expression\ConstantExpression $component */
@@ -87,7 +90,10 @@ final class ComponentTokenParser extends AbstractTokenParser {
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the component name.
+   *
+   * @return string
+   *   The component name.
    */
   public function getTag(): string {
     return 'component';

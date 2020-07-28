@@ -98,7 +98,9 @@ class TerrificCompiler implements TerrificCompilerInterface {
   }
 
   /**
-   * Compiles and adds NameExpression as a variable to the Terrific Twig context.
+   * Compiles and adds NameExpression as a variable.
+   *
+   * To the Terrific Twig context.
    *
    * @param \Twig\Node\Expression\NameExpression $expression
    *   The expression to compile.
@@ -116,7 +118,9 @@ class TerrificCompiler implements TerrificCompilerInterface {
   }
 
   /**
-   * Compiles and adds GetAttrExpression as a variable to the Terrific Twig context.
+   * Compiles & adds GetAttrExpression as a variable.
+   *
+   * To the Terrific Twig context.
    *
    * @param \Twig\Node\Expression\GetAttrExpression $expression
    *   The expression to compile.
@@ -142,7 +146,6 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *   when the given variable does not exist.
    */
   public function compileAndMergeVariableToContext(VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair, ?string $variableDoesNotExistErrorMessage = NULL): void {
-    /** @var \Twig\Compiler $twigCompiler */
     $twigCompiler = $this->getTwigCompiler();
 
     $contextArrayKeys = $variableNameAndArrayKeysPair->toTwigContextArrayKeysString();
