@@ -1,4 +1,4 @@
-# Terrific Twigs
+# Terrific Twig
 ![Build Status](https://github.com/namics/twig-nitro-library/workflows/workflow/badge.svg)
 ![Latest version](https://img.shields.io/github/v/release/namics/twig-nitro-library)
 ![License](https://img.shields.io/github/license/namics/twig-nitro-library)
