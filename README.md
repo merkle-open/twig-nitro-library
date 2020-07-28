@@ -18,12 +18,8 @@ $ composer require namics/terrific-twig
 ## Requirements
 
 The following versions of PHP are currently supported.
-
-+ ~~PHP 5.4~~ (**Deprecated**. Builds are failing since the tests are relying on [`::class`](http://php.net/manual/en/language.oop5.basic.php#language.oop5.basic.class.class).)
-+ PHP 5.5
-+ PHP 5.6
-+ PHP 7
-+ HHVM
+* 7.3
+* 7.4
 
 ## Setup
 Step 1: Implement `TemplateInformationProvider`
