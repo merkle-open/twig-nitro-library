@@ -3,28 +3,16 @@
 namespace Namics\Terrific\Twig\Loader;
 
 use Namics\Terrific\Provider\TemplateInformationProviderInterface;
-use Twig\Error\LoaderError;
 use Twig\Loader\FilesystemLoader;
 
 /**
- * TerrificLoader searches for templates on the filesystem.
+ * Searches for templates inside given paths on the filesystem.
  *
- * Within a terrific structure.
- * Since the templates are stored on the filesystem nonetheless,
- * TerrificLoader extends Twig's Twig_Loader_Filesystem.
- *
- * Class TerrificLoader.
+ * Includes all subdirectories of given paths recursively.
  *
  * @package Namics\Terrific\Twig\Loader
  */
 final class TerrificLoader extends FilesystemLoader {
-
-  /**
-   * The template file extension to use.
-   *
-   * @var string
-   */
-  private $fileExtension = 'html.twig';
 
   /**
    * TerrificLoader constructor.
@@ -33,40 +21,43 @@ final class TerrificLoader extends FilesystemLoader {
    *   The template locator.
    */
   public function __construct(TemplateInformationProviderInterface $locator) {
-    parent::__construct($locator->getPaths());
-    $this->fileExtension = $locator->getFileExtension();
+    parent::__construct(
+      $this->getPathSubdirectories($locator->getPaths())
+    );
   }
 
   /**
-   * {@inheritdoc}
+   * Returns all subdirectories of given directory recursively.
+   *
+   * @param string[] $componentDirectoryPaths
+   *   Array of paths that contain components in any of their subdirectories.
+   *   Or directly inside of them.
+   *
+   * @return string[]
+   *   All subdirectories contained inside given directory.
    */
-  protected function findTemplate($name) {
-    $name = $this->normalizeName($name);
+  private function getPathSubdirectories(array $componentDirectoryPaths): array {
+    $paths = [];
 
-    if (isset($this->cache[$name])) {
-      return $this->cache[$name];
-    }
+    foreach ($componentDirectoryPaths as $componentDirectoryPath) {
+      $pathIterator = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($componentDirectoryPath, \RecursiveDirectoryIterator::SKIP_DOTS),
+        \RecursiveIteratorIterator::SELF_FIRST,
+        // Ignore "Permission denied" errors.
+        \RecursiveIteratorIterator::CATCH_GET_CHILD
+      );
 
-    if (isset($this->errorCache[$name])) {
-      throw new LoaderError($this->errorCache[$name]);
-    }
-
-    $this->validateName($name);
-    $namespace = parent::MAIN_NAMESPACE;
-
-    $terrificPath = $name . '/' . strtolower($name) . '.' . $this->fileExtension;
-
-    foreach ($this->paths[$namespace] as $path) {
-      $fullPath = $path . '/' . $terrificPath;
-      $realPath = realpath($fullPath);
-      if (is_readable($fullPath) && $realPath !== FALSE) {
-        return $this->cache[$name] = $realPath;
+      $paths[] = $componentDirectoryPath;
+      foreach ($pathIterator as $path => $fileInfo) {
+        /** @var \SplFileInfo $fileInfo */
+        if ($fileInfo->isDir()) {
+          /** @var string $path */
+          $paths[] = $path;
+        }
       }
     }
 
-    $this->errorCache[$name] = sprintf('Unable to find component "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
-
-    throw new LoaderError($this->errorCache[$name]);
+    return $paths;
   }
 
 }

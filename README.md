@@ -27,15 +27,16 @@ Step 1: Implement `TemplateInformationProvider`
 ```php
 class TemplateInformationProvider implements TemplateInformationProviderInterface
 {
-    public function getPaths()
-    {
-      return []; // List of path where Terrific Components can be found, e.g. (/var/www/example.com/frontend/components)
-    }
-
-    public function getFileExtension()
-    {
-      $fileExtension = 'html.twig';
-      return $fileExtension;
+    public function getPaths() {
+    /* List of path where Terrific Components can be found, e.g.
+      @code
+      [
+        '/var/www/example.com/frontend/src/atoms',
+        '/var/www/example.com/frontend/src/molecules',
+        '/var/www/example.com/frontend/src/organisms'
+      ]
+      @endcode */
+      return [];
     }
 }
 ```
@@ -101,7 +102,7 @@ The functionality is based on the fantastic `Twig_TokenParser_Include`.
 The Node compiles the tokenized tag to PHP. To see some of the output, check the [`ComponentTest`](https://github.com/namics/terrific-twig/blob/master/test/Twig/Node/ComponentTest.php).
 
 ### Loader
-The `TerrificLoader` extends the `Twig_Loader_Filesystem` as it actually loads templates from the filesystem. An implementation of `TemplateLocatorInterface` provides the paths where the loader should search for templates.
+The `TerrificLoader` loads templates contained inside the given paths. An implementation of `TemplateLocatorInterface` provides the paths where the loader should search for templates. Recursively loads any directories contained inside the given directories.
 
 ### Template Information Provider
 An implementation of `TemplateInformationProviderInterface` should return a list of paths where templates live. These should be in the form of `['frontend/components/atoms', 'frontend/components/molecules', 'frontend/components/organisms']`. The component directory will be provided by the `TerrificLoader` (`Example/example.[ext]`).
