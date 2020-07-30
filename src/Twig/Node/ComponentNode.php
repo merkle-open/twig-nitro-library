@@ -184,42 +184,6 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   }
 
   /**
-   * Generates an array with the array keys.
-   *
-   * Pointing to the value location of given expression in the context.
-   *
-   * TODO: This method is never used. Check!
-   *
-   * @param \Twig\Node\Expression\GetAttrExpression $expression
-   *   The expression to get the context array keys for.
-   *
-   * @return string[]
-   *   Array with array keys.
-   */
-  protected function compileGetAttrExpressionComponentName(GetAttrExpression $expression): array {
-    if ($this->getExpressionHandler()->isNestedObject($expression)) {
-      $dataVariableName = $expression->getNode('attribute')->getAttribute('value');
-      $childExpression = $expression->getNode('node');
-
-      // TODO: undefined method buildGetAttrExpressionArrayKeys(). Add DI if this method is necessary.
-      $dataVariableArrayKeys = $this->buildGetAttrExpressionArrayKeys($childExpression);
-
-      $dataExpressionArrayKeys = $dataVariableArrayKeys;
-      $dataExpressionArrayKeys[] = $dataVariableName;
-
-      return $dataExpressionArrayKeys;
-    }
-    else {
-      $dataVariableName = $expression->getNode('node')->getAttribute('name');
-      $dataVariableArrayKey = $expression->getNode('attribute')->getAttribute('value');
-
-      $dataExpressionArrayKeys = [$dataVariableName, $dataVariableArrayKey];
-
-      return $dataExpressionArrayKeys;
-    }
-  }
-
-  /**
    * Returns the expression handler.
    */
   protected function getExpressionHandler(): ExpressionHandler {
