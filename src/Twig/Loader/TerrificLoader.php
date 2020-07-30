@@ -1,74 +1,63 @@
 <?php
 
-/**
- * This file is part of the Terrific Twig package.
- *
- * (c) Robert Vogt <robert.vogt@namics.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Namics\Terrific\Twig\Loader;
 
-namespace Deniaz\Terrific\Twig\Loader;
-
-use Deniaz\Terrific\Provider\TemplateInformationProviderInterface;
-use \Twig_Error_Loader;
-use \Twig_Loader_Filesystem;
+use Namics\Terrific\Provider\TemplateInformationProviderInterface;
+use Twig\Loader\FilesystemLoader;
 
 /**
- * TerrificLoader searches for templates on the filesystem within a terrific structure. Since the templates are stored
- * on the filesystem nonetheless, TerrificLoader extends Twig's Twig_Loader_Filesystem.
+ * Searches for templates inside given paths on the filesystem.
  *
- * Class TerrificLoader
- * @package Deniaz\Terrific\Twig\Loader
+ * Includes all subdirectories of given paths recursively.
+ *
+ * @package Namics\Terrific\Twig\Loader
  */
-final class TerrificLoader extends Twig_Loader_Filesystem
-{
-    /**
-     * @var string $fileExtension Template File Extension.
-     */
-    private $fileExtension = 'html.twig';
+final class TerrificLoader extends FilesystemLoader {
 
-    /**
-     * TerrificLoader constructor.
-     * @param TemplateInformationProviderInterface $locator
-     */
-    public function __construct(TemplateInformationProviderInterface $locator)
-    {
-        parent::__construct($locator->getPaths());
-        $this->fileExtension = $locator->getFileExtension();
+  /**
+   * TerrificLoader constructor.
+   *
+   * @param \Namics\Terrific\Provider\TemplateInformationProviderInterface $locator
+   *   The template locator.
+   */
+  public function __construct(TemplateInformationProviderInterface $locator) {
+    parent::__construct(
+      $this->getPathSubdirectories($locator->getPaths())
+    );
+  }
+
+  /**
+   * Returns all subdirectories of given directory recursively.
+   *
+   * @param string[] $componentDirectoryPaths
+   *   Array of paths that contain components in any of their subdirectories.
+   *   Or directly inside of them.
+   *
+   * @return string[]
+   *   All subdirectories contained inside given directory.
+   */
+  private function getPathSubdirectories(array $componentDirectoryPaths): array {
+    $paths = [];
+
+    foreach ($componentDirectoryPaths as $componentDirectoryPath) {
+      $pathIterator = new \RecursiveIteratorIterator(
+        new \RecursiveDirectoryIterator($componentDirectoryPath, \RecursiveDirectoryIterator::SKIP_DOTS),
+        \RecursiveIteratorIterator::SELF_FIRST,
+        // Ignore "Permission denied" errors.
+        \RecursiveIteratorIterator::CATCH_GET_CHILD
+      );
+
+      $paths[] = $componentDirectoryPath;
+      foreach ($pathIterator as $path => $fileInfo) {
+        /** @var \SplFileInfo $fileInfo */
+        if ($fileInfo->isDir()) {
+          /** @var string $path */
+          $paths[] = $path;
+        }
+      }
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function findTemplate($name)
-    {
-        $name = $this->normalizeName($name);
+    return $paths;
+  }
 
-        if (isset($this->cache[$name])) {
-            return $this->cache[$name];
-        }
-
-        if (isset($this->errorCache[$name])) {
-            throw new Twig_Error_Loader($this->errorCache[$name]);
-        }
-
-        $this->validateName($name);
-        $namespace = parent::MAIN_NAMESPACE;
-
-        $terrificPath = $name . '/' . strtolower($name) . '.' . $this->fileExtension;
-
-        foreach ($this->paths[$namespace] as $path) {
-            $fullPath = $path . '/' . $terrificPath;
-            $realPath = realpath($fullPath);
-            if (is_readable($fullPath) && $realPath !== false) {
-                return $this->cache[$name] = $realPath;
-            }
-        }
-
-        $this->errorCache[$name] = sprintf('Unable to find component "%s" (looked into: %s).', $name, implode(', ', $this->paths[$namespace]));
-
-        throw new Twig_Error_Loader($this->errorCache[$name]);
-    }
 }

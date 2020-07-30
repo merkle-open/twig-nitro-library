@@ -1,59 +1,62 @@
 <?php
 
-/**
- * This file is part of the Terrific Twig package.
- *
- * (c) Robert Vogt <robert.vogt@namics.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Namics\Terrific\Twig\Extension;
 
-namespace Deniaz\Terrific\Twig\Extension;
-
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
-use \Twig_Extension;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Twig\Extension\AbstractExtension;
 
 /**
- * TerrificExtension adds Terrific Features to the Twig Environment. Currently only the ComponentTokenParser is added,
- * which results in the additional component tag.
+ * Adds Terrific features to the Twig Environment.
  *
- * Class TerrificExtension
- * @package Deniaz\Terrific\Twig\Extension
+ * @package Namics\Terrific\Twig\Extension
  */
-final class TerrificExtension extends Twig_Extension
-{
-    /**
-     * @var ContextProviderInterface Context Variable Provider.
-     */
-    private $ctxProvider;
+final class TerrificExtension extends AbstractExtension {
 
-    /**
-     * TerrificExtension constructor.
-     * @param ContextProviderInterface $ctxProvider
-     * @TODO: Default Provider?
-     */
-    public function __construct(ContextProviderInterface $ctxProvider)
-    {
-        $this->ctxProvider = $ctxProvider;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'terrific';
-    }
+  /**
+   * The file extension of templates that this extension loads.
+   *
+   * @var string
+   */
+  public const TEMPLATE_FILE_EXTENSION = '.twig';
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTokenParsers()
-    {
-        return [
-            new ComponentTokenParser($this->ctxProvider),
-        ];
-    }
+  /**
+   * The context provider.
+   *
+   * @var \Namics\Terrific\Provider\ContextProviderInterface
+   */
+  private $ctxProvider;
+
+  /**
+   * TerrificExtension constructor.
+   *
+   * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
+   *   The context provider.
+   */
+  public function __construct(ContextProviderInterface $ctxProvider) {
+    $this->ctxProvider = $ctxProvider;
+  }
+
+  /**
+   * Returns the extension name.
+   *
+   * @return string
+   *   Twig extension name.
+   */
+  public function getName(): string {
+    return 'terrific';
+  }
+
+  /**
+   * Returns the token parsers of this extension.
+   *
+   * @return \Twig\TokenParser\TokenParserInterface[]
+   *   The token parsers of this extension.
+   */
+  public function getTokenParsers(): array {
+    return [
+      new ComponentTokenParser($this->ctxProvider),
+    ];
+  }
+
 }

@@ -1,96 +1,102 @@
 <?php
 
-/**
- * This file is part of the Terrific Twig package.
- *
- * (c) Robert Vogt <robert.vogt@namics.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Namics\Terrific\Twig\TokenParser;
 
-namespace Deniaz\Terrific\Twig\TokenParser;
-
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\Node\ComponentNode;
-use Twig_Token;
-use Twig_TokenParser;
+use Namics\Terrific\Provider\ContextProviderInterface;
+use Namics\Terrific\Twig\Node\ComponentNode;
+use Twig\Token;
+use Twig\TokenParser\AbstractTokenParser;
 
 /**
  * Includes a Terrific Component.
  *
- * Class ComponentTokenParser
- * @package Deniaz\Terrific\Twig\TokenParser
+ * Class ComponentTokenParser.
+ *
+ * @package Namics\Terrific\Twig\TokenParser
  */
-final class ComponentTokenParser extends Twig_TokenParser
-{
-    /**
-     * @var ContextProviderInterface Context Variable Provider.
-     */
-    private $ctxProvider;
+final class ComponentTokenParser extends AbstractTokenParser {
 
-    /**
-     * ComponentTokenParser constructor.
-     * @param ContextProviderInterface $ctxProvider
-     */
-    public function __construct(ContextProviderInterface $ctxProvider)
-    {
-        $this->ctxProvider = $ctxProvider;
+  /**
+   * The context provider.
+   *
+   * @var \Namics\Terrific\Provider\ContextProviderInterface
+   */
+  private $ctxProvider;
+
+  /**
+   * ComponentTokenParser constructor.
+   *
+   * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
+   *   The context provider.
+   */
+  public function __construct(ContextProviderInterface $ctxProvider) {
+    $this->ctxProvider = $ctxProvider;
+  }
+
+  /**
+   * Creates
+   *
+   * @return \Namics\Terrific\Twig\Node\ComponentNode
+   *   The component node.
+   */
+  public function parse(Token $token): ComponentNode {
+    /** @var \Twig\Node\Expression\ConstantExpression $component */
+    $component = $this->parser->getExpressionParser()->parseExpression();
+    list($data, $only) = $this->parseArguments();
+
+    return new ComponentNode($component, $this->ctxProvider, $data, $only, $token->getLine(), $this->getTag());
+  }
+
+  /**
+   * Tokenizes the component stream.
+   *
+   * @return array
+   *   Array containing data and only flag.
+   */
+  protected function parseArguments(): array {
+    $data = NULL;
+    $only = FALSE;
+
+    /** @var \Twig\TokenStream $stream */
+    $stream = $this->parser->getStream();
+
+    // BLOCK_END_TYPE = delimiter for blocks.
+    if ($stream->test(Token::BLOCK_END_TYPE)) {
+      $stream->expect(Token::BLOCK_END_TYPE);
+
+      return [$data, $only];
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function parse(Twig_Token $token)
-    {
-        $component = $this->parser->getExpressionParser()->parseExpression();
-        list($data, $only) = $this->parseArguments();
+    // NAME_TYPE = name expression.
+    if ($stream->test(Token::NAME_TYPE, 'only')) {
+      $only = TRUE;
+      $stream->next();
+      $stream->expect(Token::BLOCK_END_TYPE);
 
-        return new ComponentNode($component, $this->ctxProvider, $data, $only, $token->getLine(), $this->getTag());
+      return [$data, $only];
     }
 
-    /**
-     * Tokenizes the component stream.
-     * @return array
-     */
-    protected function parseArguments()
-    {
-        $stream = $this->parser->getStream();
+    /** @var \Twig\Node\Expression\ArrayExpression $data */
+    $data = $this->parser->getExpressionParser()->parseExpression();
 
-        $data = null;
-        $only = false;
-
-        if ($stream->test(Twig_Token::BLOCK_END_TYPE)) {
-            $stream->expect(Twig_Token::BLOCK_END_TYPE);
-
-            return [$data, $only];
-        }
-
-        if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
-            $only = true;
-            $stream->next();
-            $stream->expect(Twig_Token::BLOCK_END_TYPE);
-
-            return [$data, $only];
-        }
-
-        $data = $this->parser->getExpressionParser()->parseExpression();
-
-        if ($stream->test(Twig_Token::NAME_TYPE, 'only')) {
-            $only = true;
-            $stream->next();
-        }
-
-        $stream->expect(Twig_Token::BLOCK_END_TYPE);
-
-        return [$data, $only];
+    if ($stream->test(Token::NAME_TYPE, 'only')) {
+      $only = TRUE;
+      $stream->next();
     }
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getTag()
-    {
-        return 'component';
-    }
+    $stream->expect(Token::BLOCK_END_TYPE);
+
+    return [$data, $only];
+  }
+
+  /**
+   * Returns the component name.
+   *
+   * @return string
+   *   The component name.
+   */
+  public function getTag(): string {
+    return 'component';
+  }
+
 }

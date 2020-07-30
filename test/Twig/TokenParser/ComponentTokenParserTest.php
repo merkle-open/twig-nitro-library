@@ -1,31 +1,35 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\TokenParser;
+namespace Namics\Test\Terrific\Twig\TokenParser;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Test\Terrific\Twig\TwigTestBase;
 
 /**
- * Class ComponentTokenParser.
+ * Class ComponentTokenParserTest.
  *
- * @TODO Maybe implement test for the Parser.
+ * @package Namics\Test\Terrific\Twig\TokenParser
+ * @coversDefaultClass \Namics\Terrific\Twig\TokenParser\ComponentTokenParser
  */
-class ComponentTokenParserTest extends \PHPUnit_Framework_TestCase
-{
-    public function testGetTag()
-    {
-        $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-        $parser = new ComponentTokenParser($stub);
-        $this->assertEquals('component', $parser->getTag());
-    }
+class ComponentTokenParserTest extends TwigTestBase {
 
-//    public function testParse()
-//    {
-//        $tokenParser = new ComponentTokenParser();
-//        $parser = $this->getMockBuilder('Twig_Parser')->getMock();
-//        $token = $this->getMockBuilder('Twig_Token')->getMock();
-//
-//        $tokenParser->setParser($parser);
-//        $this->assertInstanceOf(ComponentNode::class, $tokenParser->parse($token));
-//    }
+  /**
+   * Test the tag.
+   *
+   * @covers ::getTag
+   */
+  public function testGetTag() {
+    $parser = $this->getComponentTokenParser();
+    $this->assertEquals('component', $parser->getTag());
+  }
+
+  /* TODO: Test
+  public function testParse() {
+    $tokenParser = $this->getComponentTokenParser();
+
+    $token = $this->getMockBuilder('Twig_Token')->getMock();
+
+    $tokenParser->setParser($tokenParser);
+    $this->assertInstanceOf(ComponentNode::class, $tokenParser->parse($token));
+  } */
+
 }

@@ -1,28 +1,38 @@
 <?php
 
-namespace Deniaz\Test\Terrific\Twig\Extension;
+namespace Namics\Test\Terrific\Twig\Extension;
 
-use Deniaz\Terrific\Provider\ContextProviderInterface;
-use Deniaz\Terrific\Twig\Extension\TerrificExtension;
-use Deniaz\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Test\Terrific\Twig\TwigTestBase;
 
-class TerrificExtensionTest extends \PHPUnit_Framework_TestCase
-{
-    public function testReturnsExtensionName()
-    {
-        $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-        $ext = new TerrificExtension($stub);
-        $name = $ext->getName();
+/**
+ * Class TerrificExtensionTest.
+ *
+ * @package Namics\Test\Terrific\Twig\Extension
+ * @coversDefaultClass \Namics\Terrific\Twig\Extension\TerrificExtension
+ */
+class TerrificExtensionTest extends TwigTestBase {
 
-        $this->assertEquals('terrific', $name);
-    }
+  /**
+   * Test extension name return value.
+   *
+   * @covers ::getName
+   */
+  public function testGetName(): void {
+    $twigExtension = $this->getTwigExtension();
 
-    public function testReturnsComponentTokenParser()
-    {
-        $stub = $this->getMockBuilder(ContextProviderInterface::class)->getMock();
-        $ext = new TerrificExtension($stub);
-        $parsers = $ext->getTokenParsers();
+    $this->assertEquals('terrific', $twigExtension->getName(), 'Returned Twig extension name is not identical.');
+  }
 
-        $this->assertContainsOnly(ComponentTokenParser::class, $parsers);
-    }
+  /**
+   * Test component token parser.
+   *
+   * @covers ::getTokenParsers
+   */
+  public function testGetTokenParsers(): void {
+    $twigExtension = $this->getTwigExtension();
+
+    $this->assertContainsOnlyInstancesOf(ComponentTokenParser::class, $twigExtension->getTokenParsers(), 'Token parser does not include only class ComponentTokenParser.');
+  }
+
 }

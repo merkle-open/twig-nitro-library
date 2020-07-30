@@ -2,7 +2,13 @@
     "name": "namics/twig-nitro-library",
     "description": "Extension to embrace the Terrific frontend methodology in Twig. Currently it adds a custom component tag to Twig which mimics Nitro's handlebars helper.",
     "type": "library",
-    "keywords": ["terrific", "nitro", "twig", "integration", "namics"],
+    "keywords": [
+        "terrific",
+        "nitro",
+        "twig",
+        "integration",
+        "namics"
+    ],
     "homepage": "https://github.com/namics/twig-nitro-library",
     "license": "MIT",
     "authors": [
@@ -10,16 +16,29 @@
             "name": "Robert Vogt",
             "email": "robert.vogt@namics.com",
             "homepage": "https://github.com/deniaz"
+        },
+        {
+            "name": "Namics",
+            "email": "drupal@namics.com",
+            "homepage": "https://github.com/namics"
         }
     ],
     "autoload": {
         "psr-4": {
-            "Deniaz\\Terrific\\": "src/",
-            "Deniaz\\Test\\Terrific\\": "test/"
+            "Namics\\Terrific\\": "src/",
+            "Namics\\Test\\Terrific\\": "test/"
         }
     },
     "require": {
-        "php": ">=5.4",
-        "twig/twig": "~1.24"
+        "php": ">=7.3",
+        "twig/twig": "^2.13"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "scripts": {
+        "tests": [
+            "vendor/bin/phpunit"
+        ]
     }
 }

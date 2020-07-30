@@ -1,5 +1,60 @@
-.idea
+# OSX system files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
+
+# Git
+*.git
+
+# Packages
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Temporary
+tmp
+.grunt
+
+# PHPStorm
+.idea/
+.idea/*
+
+# NPM
+node_modules/
+
+# SASS #
+########
+.sass-cache/
+*.css.map
+
+# Composer
+composer.phar
 composer.lock
 vendor/
+
+
+# PHPUnit Tests
+.phpunit.result.cache
+
+# Drush
+drush.phar
+
+# Certificates
+*.pem
+*.crt
+*.cert
+*.key

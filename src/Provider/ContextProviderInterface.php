@@ -1,35 +1,38 @@
 <?php
 
-/**
- * This file is part of the Terrific Twig package.
- *
- * (c) Robert Vogt <robert.vogt@namics.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+namespace Namics\Terrific\Provider;
 
-namespace Deniaz\Terrific\Provider;
-
-use \Twig_Compiler;
-use \Twig_Node;
+use Twig\Compiler;
+use Twig\Node\Node;
 
 /**
  * Interface to describe a Context Provider.
  *
- * Interface ContextProviderInterface
- * @package Deniaz\Terrific\Provider
+ * Interface ContextProviderInterface.
+ *
+ * @package Namics\Terrific\Provider
  */
-interface ContextProviderInterface
-{
-    /**
-     * Compiles the $tContext variable which is passed to the Twig Template.
-     *
-     * @param Twig_Compiler $compiler
-     * @param Twig_Node $component
-     * @param Twig_Node $dataVariant
-     * @param $only
-     * @return mixed
-     */
-    public function compile(Twig_Compiler $compiler, Twig_Node $component, Twig_Node $dataVariant, $only);
+interface ContextProviderInterface {
+
+  /**
+   * The variable name of the Terrific Twig context.
+   *
+   * @var string
+   */
+  public const TERRIFIC_CONTEXT_VARIABLE = '$tContext';
+
+  /**
+   * Compiles the $tContext variable which is passed to the Twig Template.
+   *
+   * @param \Twig\Compiler $compiler
+   *   The Twig compiler.
+   * @param \Twig\Node\Node $component
+   *   The Twig node component.
+   * @param \Twig\Node\Node $dataVariant
+   *   The Twig node data variant.
+   * @param bool $only
+   *   The only attribute.
+   */
+  public function compile(Compiler $compiler, Node $component, Node $dataVariant, bool $only): void;
+
 }
