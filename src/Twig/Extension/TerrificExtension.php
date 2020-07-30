@@ -7,10 +7,7 @@ use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 use Twig\Extension\AbstractExtension;
 
 /**
- * TerrificExtension adds Terrific Features to the Twig Environment. Currently only the ComponentTokenParser is added,
- * which results in the additional component tag.
- *
- * Class TerrificExtension.
+ * Adds Terrific features to the Twig Environment.
  *
  * @package Namics\Terrific\Twig\Extension
  */
@@ -27,22 +24,27 @@ final class TerrificExtension extends AbstractExtension {
    * TerrificExtension constructor.
    *
    * @param \Namics\Terrific\Provider\ContextProviderInterface $ctxProvider
-   *
-   * @TODO: Default Provider?
+   *   The context provider.
    */
   public function __construct(ContextProviderInterface $ctxProvider) {
     $this->ctxProvider = $ctxProvider;
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the extension name.
+   *
+   * @return string
+   *   Twig extension name.
    */
   public function getName(): string {
     return 'terrific';
   }
 
   /**
-   * {@inheritdoc}
+   * Returns the token parsers of this extension.
+   *
+   * @return \Twig\TokenParser\TokenParserInterface[]
+   *   The token parsers of this extension.
    */
   public function getTokenParsers(): array {
     return [

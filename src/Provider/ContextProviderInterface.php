@@ -32,9 +32,7 @@ interface ContextProviderInterface {
    *   The Twig node data variant.
    * @param bool $only
    *   The only attribute.
-   *
-   * @return mixed
    */
-  public function compile(Compiler $compiler, Node $component, Node $dataVariant, bool $only);
+  public function compile(Compiler $compiler, Node $component, Node $dataVariant, bool $only): void;
 
 }

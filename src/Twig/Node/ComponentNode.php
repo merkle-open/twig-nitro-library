@@ -57,18 +57,18 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *   Tag name associated with the node.
    */
   public function __construct(
-        Node $component,
-        ContextProviderInterface $ctxProvider,
-        Node $data,
-        $only = FALSE,
-        $lineno,
-        $tag = NULL
+    Node $component,
+    ContextProviderInterface $ctxProvider,
+    Node $data,
+    $only = FALSE,
+    $lineno,
+    $tag = NULL
   ) {
     parent::__construct(
-    ['component' => $component, 'data' => $data],
-    ['only' => (bool) $only],
-    $lineno,
-    $tag
+      ['component' => $component, 'data' => $data],
+      ['only' => (bool) $only],
+      $lineno,
+      $tag
     );
 
     $this->ctxProvider = $ctxProvider;
@@ -83,7 +83,6 @@ final class ComponentNode extends Node implements NodeOutputInterface {
   public function compile(Compiler $compiler): void {
     $terrificCompiler = TerrificCompiler::create($compiler);
 
-    /** @var \Twig\Compiler $twigCompiler */
     $twigCompiler = $terrificCompiler->getTwigCompiler();
 
     $twigCompiler->addDebugInfo($this);
@@ -108,7 +107,6 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *   The Terrific Twig compiler.
    */
   protected function createTerrificContext(TerrificCompilerInterface $terrificCompiler): void {
-    /** @var \Twig\Compiler $twigCompiler */
     $twigCompiler = $terrificCompiler->getTwigCompiler();
 
     $twigCompiler
@@ -135,7 +133,6 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *   The Terrific Twig compiler.
    */
   protected function addGetTemplate(TerrificCompilerInterface $terrificCompiler): void {
-    /** @var \Twig\Compiler $twigCompiler */
     $twigCompiler = $terrificCompiler->getTwigCompiler();
 
     $twigCompiler->write('$this->loadTemplate(');
