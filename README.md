@@ -1,5 +1,5 @@
 # Terrific Twig
-![Build Status](https://github.com/namics/twig-nitro-library/workflows/workflow/badge.svg)
+![Build Status](https://github.com/namics/twig-nitro-library/workflows/Twig%20Nitro%20Library/badge.svg)
 ![Latest version](https://img.shields.io/github/v/release/namics/twig-nitro-library)
 ![License](https://img.shields.io/github/license/namics/twig-nitro-library)
 ![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/namics/twig-nitro-library?color=%23787CB5)
