@@ -68,4 +68,14 @@ interface TerrificCompilerInterface {
    */
   public function getExpressionHandler(): ExpressionHandler;
 
+  /**
+   * Concatenates the template file extension to a string.
+   *
+   * Example output:
+   * @code
+   * . '.twig'
+   * @endcode
+   */
+  public function compileConcatFileExtensionString(): void;
+
 }

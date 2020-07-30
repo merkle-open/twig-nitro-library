@@ -138,6 +138,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     $twigCompiler->write('$this->loadTemplate(');
 
     $this->compileComponentName($terrificCompiler);
+    $terrificCompiler->compileConcatFileExtensionString();
 
     $twigCompiler
       ->raw(', ')

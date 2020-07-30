@@ -4,6 +4,7 @@ namespace Namics\Terrific\Twig;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
+use Namics\Terrific\Twig\Extension\TerrificExtension;
 use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
 use Twig\Node\Expression\GetAttrExpression;
@@ -204,6 +205,32 @@ class TerrificCompiler implements TerrificCompilerInterface {
    */
   public function getTwigCompiler(): Compiler {
     return $this->compiler;
+  }
+
+  /**
+   * Concatenates the template file extension to a string.
+   *
+   * Example output:
+   * @code
+   * . '.twig'
+   * @endcode
+   */
+  public function compileConcatFileExtensionString(): void {
+    $this->getTwigCompiler()->raw(". '");
+    $this->compileTemplateFileExtension();
+    $this->getTwigCompiler()->raw("'");
+  }
+
+  /**
+   * Compiles the template file extension.
+   *
+   * Example output:
+   * @code
+   * .twig
+   * @endcode
+   */
+  private function compileTemplateFileExtension(): void {
+    $this->getTwigCompiler()->raw(TerrificExtension::TEMPLATE_FILE_EXTENSION);
   }
 
 }

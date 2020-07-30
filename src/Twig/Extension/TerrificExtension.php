@@ -14,6 +14,13 @@ use Twig\Extension\AbstractExtension;
 final class TerrificExtension extends AbstractExtension {
 
   /**
+   * The file extension of templates that this extension loads.
+   *
+   * @var string
+   */
+  public const TEMPLATE_FILE_EXTENSION = '.twig';
+
+  /**
    * The context provider.
    *
    * @var \Namics\Terrific\Provider\ContextProviderInterface
