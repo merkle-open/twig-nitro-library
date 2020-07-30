@@ -42,13 +42,6 @@ final class ConfigReader {
   }
 
   /**
-   * @deprecated Use getConfig() instead.
-   */
-  public function read(): array {
-    return $this->getConfig();
-  }
-
-  /**
    * Returns Terrific Nitro's config.
    *
    * @return array
