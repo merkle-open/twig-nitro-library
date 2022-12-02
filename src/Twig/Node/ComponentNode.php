@@ -60,8 +60,8 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     Node $component,
     ContextProviderInterface $ctxProvider,
     Node $data,
-    $only = FALSE,
     $lineno,
+    $only = FALSE,
     $tag = NULL
   ) {
     parent::__construct(

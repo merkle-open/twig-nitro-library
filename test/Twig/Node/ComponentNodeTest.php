@@ -27,7 +27,7 @@ class ComponentNodeTest extends TwigTestBase {
 
     $expression = new Twig_Node_Expression_Constant('Example', 1);
     $data = new Twig_Node_Expression_Array([], 1);
-    $node = new ComponentNode($expression, $ctxProvider, $data, FALSE, 0, NULL);
+    $node = new ComponentNode($expression, $ctxProvider, $data, 0, FALSE, NULL);
 
     /** @var \Twig\Node\Expression\ArrayExpression $nodeData */
     $nodeData = $node->getNode('data');
@@ -40,7 +40,7 @@ class ComponentNodeTest extends TwigTestBase {
       new Twig_Node_Expression_Constant(TRUE, 1),
     ], 1);
 
-    $node = new ComponentNode($expression, $ctxProvider, $data, TRUE, 1, NULL);
+    $node = new ComponentNode($expression, $ctxProvider, $data,  1, TRUE, NULL);
 
     $this->assertEquals($data, $node->getNode('data'), 'The data is not identical.');
     $this->assertTrue($node->getAttribute('only'), 'The "only" attribute is not TRUE.');
@@ -70,7 +70,7 @@ class ComponentNodeTest extends TwigTestBase {
   private function getDefaultTest() {
     $expr = new ConstantExpression('Example', 1);
     $data = new ArrayExpression([], 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, FALSE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, FALSE,NULL);
 
     return [
       'node' => $node,
@@ -92,7 +92,7 @@ EOF
   private function getDefaultOnlyTest() {
     $expr = new ConstantExpression('Example', 1);
     $data = new ArrayExpression([], 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, TRUE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, TRUE, NULL);
 
     return [
       'node' => $node,
@@ -116,7 +116,7 @@ EOF
       new ConstantExpression('foo', 1),
       new ConstantExpression('bar', 1),
     ], 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, FALSE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, FALSE, NULL);
 
     return [
       'node' => $node,
@@ -138,7 +138,7 @@ EOF
       new ConstantExpression('foo', 1),
       new ConstantExpression('bar', 1),
     ], 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, TRUE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, TRUE,NULL);
 
     return [
       'node' => $node,
@@ -157,7 +157,7 @@ EOF
   private function getVariantTest() {
     $expr = new ConstantExpression('Example', 1);
     $data = new ConstantExpression('example-foo', 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, FALSE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, FALSE, NULL);
 
     return [
       'node' => $node,
@@ -174,7 +174,7 @@ EOF
   private function getVariantOnlyTest() {
     $expr = new ConstantExpression('Example', 1);
     $data = new ConstantExpression('example-foo', 1);
-    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, TRUE, 1, NULL);
+    $node = new ComponentNode($expr, $this->getContextProviderMock(), $data, 1, TRUE, NULL);
 
     return [
       'node' => $node,

@@ -20,6 +20,7 @@ $ composer require namics/terrific-twig
 The following versions of PHP are currently supported.
 * 7.3
 * 7.4
+* 8.0
 
 ## Setup
 Step 1: Implement `TemplateInformationProvider`
