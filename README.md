@@ -18,8 +18,8 @@ $ composer require namics/terrific-twig
 ## Requirements
 
 The following versions of PHP are currently supported.
-* 7.3
-* 7.4
+* 8.0
+* 8.1
 
 ## Setup
 Step 1: Implement `TemplateInformationProvider`
@@ -46,7 +46,7 @@ Step 2: Implement `ContextProviderInterface`
 ```php
 class ContextProvider implements ContextProviderInterface
 {
-    public function compile(Twig_Compiler $compiler, Twig_Node $component, Twig_Node $dataVariant, $only) {
+    public function compile(\Twig\Compiler $compiler, \Twig\Node\Node $component, \Twig\Node\Node $dataVariant, $only) {
         // ...
     }
 }
@@ -55,13 +55,13 @@ class ContextProvider implements ContextProviderInterface
 Step 3: Add `TerrificLoader`
 ```php
 $loader = ...;
-$chain = new Twig_Loader_Chain([$loader, new TerrificLoader(new TemplateInformationProvider)]);
-$twig = new Twig_Environment($chain);
+$chain = new \Twig\Loader\ChainLoader([$loader, new TerrificLoader(new TemplateInformationProvider)]);
+$twig = new \Twig\Environment($chain);
 ```
 
 Step 4: Add `TerrificExtension`
 ```php
-$twig = new Twig_Environment($chain);
+$twig = new \Twig\Environment($chain);
 $twig->addExtension(new TerrificExtension(new ContextProvider));
 ```
 

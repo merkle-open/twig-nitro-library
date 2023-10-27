@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig;
 
 use Namics\Terrific\Twig\Utility\ExpressionHandler;

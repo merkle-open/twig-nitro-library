@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
@@ -7,6 +9,7 @@ use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
 use Namics\Terrific\Twig\Extension\TerrificExtension;
 use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
+use Twig\Error\Error;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Node\Expression\NameExpression;
 
@@ -22,7 +25,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *
    * @var \Twig\Compiler
    */
-  protected $compiler;
+  protected Compiler $compiler;
 
   /**
    * The expression handler.
@@ -32,7 +35,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *
    * @var \Namics\Terrific\Twig\Utility\ExpressionHandler
    */
-  private $expressionHandler;
+  private ExpressionHandler $expressionHandler;
 
   /**
    * TerrificCompiler constructor.
@@ -62,6 +65,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    * @param string $contextVariable
    *   The PHP variable to use as base for adding the array keys.
    *   Defaults to the Terrific context.
+   * @throws Error
    */
   public function compileNameExpressionAsContextVariable(NameExpression $expression, string $contextVariable = ContextProviderInterface::TERRIFIC_CONTEXT_VARIABLE): void {
     $variableName = $this->getExpressionHandler()->getVariableNameFromNameExpression($expression);
@@ -138,13 +142,14 @@ class TerrificCompiler implements TerrificCompilerInterface {
   /**
    * Checks if given variable exists, and adds it to the context.
    *
-   * So it it's data is available in the compiled component.
+   * So it its data is available in the compiled component.
    *
-   * @param \Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
+   * @param VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair
    *   Object containing the variable name and optionally array keys.
    * @param string|null $variableDoesNotExistErrorMessage
    *   Custom error message that is used as exception message
    *   when the given variable does not exist.
+   * @throws Error
    */
   public function compileAndMergeVariableToContext(VariableNameAndArrayKeysPair $variableNameAndArrayKeysPair, ?string $variableDoesNotExistErrorMessage = NULL): void {
     $twigCompiler = $this->getTwigCompiler();

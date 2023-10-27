@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\Data;
 
 use Twig\Error\Error;
@@ -16,7 +18,7 @@ class VariableNameAndArrayKeysPair {
    *
    * @var string
    */
-  protected $variableName;
+  protected string $variableName;
 
   /**
    * Array of array keys for given variableName variable.
@@ -25,7 +27,7 @@ class VariableNameAndArrayKeysPair {
    *
    * @var string[]
    */
-  protected $arrayKeys;
+  protected array $arrayKeys;
 
   /**
    * VariableNameAndArrayKeysPair constructor.
@@ -137,6 +139,7 @@ class VariableNameAndArrayKeysPair {
    *
    * @return string
    *   E.g. myVariable['aKey']['anotherKey'].
+   * @throws Error
    */
   public function toTwigVariableString(): string {
     if (!$this->isVariableNameEmpty()) {

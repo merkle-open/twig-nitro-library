@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Test\Terrific\Twig\Loader;
 
 use Namics\Terrific\Provider\TemplateInformationProviderInterface;
@@ -98,7 +100,7 @@ class TerrificLoaderTest extends TestCase {
     }
     catch (Exception $exception) {
       $this->assertInstanceOf(LoaderError::class, $exception, 'Exception "' . LoaderError::class . '" was not thrown.');
-      $this->assertContains('Unable to find template "fake-component.twig"', $exception->getMessage(), 'Exception message is not identical.');
+      $this->assertStringContainsString('Unable to find template "fake-component.twig"', $exception->getMessage(), 'Exception message is not identical.');
     }
 
     // Check if the cache is invoked.
@@ -107,7 +109,7 @@ class TerrificLoaderTest extends TestCase {
     }
     catch (Exception $exception) {
       $this->assertInstanceOf(LoaderError::class, $exception, 'Exception "' . LoaderError::class . '" was not thrown.');
-      $this->assertContains('Unable to find template "fake-component.twig"', $exception->getMessage(), 'Exception message is not identical.');
+      $this->assertStringContainsString('Unable to find template "fake-component.twig"', $exception->getMessage(), 'Exception message is not identical.');
     }
   }
 

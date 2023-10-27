@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Config;
 
 use DomainException;
@@ -26,7 +28,7 @@ final class ConfigReader {
    *
    * @var array
    */
-  private $config = [];
+  private array $config = [];
 
   /**
    * ConfigReader constructor.
@@ -36,7 +38,7 @@ final class ConfigReader {
    *
    * @throws DomainException Thrown if Configuration could not be loaded correctly.
    */
-  public function __construct($terrificDir) {
+  public function __construct(string $terrificDir) {
     $path = $terrificDir . '/' . self::TERRIFIC_NITRO_FILE_NAME;
     $this->readConfig($path);
   }
@@ -56,8 +58,9 @@ final class ConfigReader {
    *
    * @param string $path
    *   The path to the config file.
+   * @return void
    */
-  protected function readConfig(string $path) {
+  protected function readConfig(string $path): void {
     if (is_readable($path)) {
       try {
         $this->config = json_decode(file_get_contents($path), TRUE);
@@ -67,7 +70,7 @@ final class ConfigReader {
         }
       }
       catch (DomainException $e) {
-        throw $e;
+        throw new DomainException($e->getMessage());
       }
     }
   }
