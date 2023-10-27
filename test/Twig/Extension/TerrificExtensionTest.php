@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Test\Terrific\Twig\Extension;
 
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;

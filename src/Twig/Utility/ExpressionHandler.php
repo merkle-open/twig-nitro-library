@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\Utility;
 
 use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
@@ -88,12 +90,10 @@ class ExpressionHandler {
    *
    * @return bool
    *   TRUE if nested object.
-   *   Otherwise FALSE.
+   *   Otherwise, FALSE.
    */
   public function isNestedObject(Node $expression): bool {
-    $isNestedObject = $expression->hasNode('node') && $expression->getNode('node') instanceof GetAttrExpression;
-
-    return $isNestedObject;
+    return $expression->hasNode('node') && $expression->getNode('node') instanceof GetAttrExpression;
   }
 
   /**

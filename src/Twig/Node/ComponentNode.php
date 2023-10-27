@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\Node;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
@@ -28,7 +30,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *
    * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
-  private $ctxProvider;
+  private ContextProviderInterface $ctxProvider;
 
   /**
    * The expression handler.
@@ -38,7 +40,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    *
    * @var \Namics\Terrific\Twig\Utility\ExpressionHandler
    */
-  private $expressionHandler;
+  private ExpressionHandler $expressionHandler;
 
   /**
    * ComponentNode constructor.
@@ -60,9 +62,9 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     Node $component,
     ContextProviderInterface $ctxProvider,
     Node $data,
-    $lineno,
-    $only = FALSE,
-    $tag = NULL
+    int $lineno,
+    bool $only = FALSE,
+    string $tag = NULL
   ) {
     parent::__construct(
       ['component' => $component, 'data' => $data],
@@ -129,8 +131,9 @@ final class ComponentNode extends Node implements NodeOutputInterface {
    * IMPORTANT: Has to be executed after the Terrific context was created
    * (ComponentNode::createTerrificContext).
    *
-   * @param \Namics\Terrific\Twig\TerrificCompilerInterface $terrificCompiler
+   * @param TerrificCompilerInterface $terrificCompiler
    *   The Terrific Twig compiler.
+   * @throws SyntaxError
    */
   protected function addGetTemplate(TerrificCompilerInterface $terrificCompiler): void {
     $twigCompiler = $terrificCompiler->getTwigCompiler();
@@ -161,7 +164,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
     $node = $this->getNode('component');
 
     /* If a variable is used for component name,
-    use it's value (is inside Terrifc context "$tContext") for template name.
+    use its value (is inside Terrifc context "$tContext") for template name.
     E.g. {% component myTwigComponentName { dataItem: 'my string' } %} */
     if ($node instanceof NameExpression) {
       $terrificCompiler->compileNameExpressionAsContextVariable($node);
@@ -173,7 +176,7 @@ final class ComponentNode extends Node implements NodeOutputInterface {
       $terrificCompiler->getTwigCompiler()->subcompile($node);
     }
     /* If an object object/array used for component name,
-    use it's value (is inside Terrifc context "$tContext") for template name.
+    use its value (is inside Terrifc context "$tContext") for template name.
     E.g. {% component myTwigObject.anObjectProperty.myTwigComponentName { dataItem: 'my string' } %} */
     elseif ($node instanceof GetAttrExpression) {
       $terrificCompiler->compileGetAttrExpressionAsContextVariable($node);

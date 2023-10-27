@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\Loader;
 
 use Namics\Terrific\Provider\TemplateInformationProviderInterface;

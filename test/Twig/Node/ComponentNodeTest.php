@@ -1,13 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Test\Terrific\Twig\Node;
 
 use Namics\Terrific\Twig\Node\ComponentNode;
 use Namics\Test\Terrific\Twig\TwigTestBase;
 use Twig\Node\Expression\ArrayExpression;
 use Twig\Node\Expression\ConstantExpression;
-use Twig_Node_Expression_Constant;
-use Twig_Node_Expression_Array;
 
 /**
  * Class ComponentNodeTest.
@@ -18,15 +18,15 @@ use Twig_Node_Expression_Array;
 class ComponentNodeTest extends TwigTestBase {
 
   /**
-   * The the constructor.
+   * The constructor.
    *
    * @covers ::__construct
    */
   public function testConstructor() {
     $ctxProvider = $this->getContextProviderMock();
 
-    $expression = new Twig_Node_Expression_Constant('Example', 1);
-    $data = new Twig_Node_Expression_Array([], 1);
+    $expression = new ConstantExpression('Example', 1);
+    $data = new ArrayExpression([], 1);
     $node = new ComponentNode($expression, $ctxProvider, $data, 0, FALSE, NULL);
 
     /** @var \Twig\Node\Expression\ArrayExpression $nodeData */
@@ -35,9 +35,9 @@ class ComponentNodeTest extends TwigTestBase {
     $this->assertEquals($expression, $node->getNode('component'), 'The expressions are not identical.');
     $this->assertFalse($node->getAttribute('only'), 'The "only" attribute is not FALSE.');
 
-    $data = new Twig_Node_Expression_Array([
-      new Twig_Node_Expression_Constant('foo', 1),
-      new Twig_Node_Expression_Constant(TRUE, 1),
+    $data = new ArrayExpression([
+      new ConstantExpression('foo', 1),
+      new ConstantExpression(TRUE, 1),
     ], 1);
 
     $node = new ComponentNode($expression, $ctxProvider, $data,  1, TRUE, NULL);

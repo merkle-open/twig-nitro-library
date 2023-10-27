@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\Extension;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
@@ -25,7 +27,7 @@ final class TerrificExtension extends AbstractExtension {
    *
    * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
-  private $ctxProvider;
+  private ContextProviderInterface $ctxProvider;
 
   /**
    * TerrificExtension constructor.

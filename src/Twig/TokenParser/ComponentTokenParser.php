@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Namics\Terrific\Twig\TokenParser;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
@@ -21,7 +23,7 @@ final class ComponentTokenParser extends AbstractTokenParser {
    *
    * @var \Namics\Terrific\Provider\ContextProviderInterface
    */
-  private $ctxProvider;
+  private ContextProviderInterface $ctxProvider;
 
   /**
    * ComponentTokenParser constructor.
