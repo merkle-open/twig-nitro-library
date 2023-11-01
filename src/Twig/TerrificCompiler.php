@@ -45,6 +45,7 @@ class TerrificCompiler implements TerrificCompilerInterface {
    */
   protected function __construct(Compiler $compiler) {
     $this->compiler = $compiler;
+    $this->expressionHandler = ExpressionHandler::create();
   }
 
   /**
@@ -195,10 +196,6 @@ class TerrificCompiler implements TerrificCompilerInterface {
    *   The expression handler.
    */
   public function getExpressionHandler(): ExpressionHandler {
-    if (!$this->expressionHandler instanceof ExpressionHandler) {
-      $this->expressionHandler = ExpressionHandler::create();
-    }
-
     return $this->expressionHandler;
   }
 
