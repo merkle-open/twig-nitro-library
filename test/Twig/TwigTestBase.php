@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Namics\Test\Terrific\Twig;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
-use Namics\Terrific\Twig\Extension\TerrificExtension;
+use Namics\Terrific\Twig\TwigExtension\TerrificExtension;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 use PHPUnit\Framework\TestCase;
 
@@ -29,7 +29,7 @@ abstract class TwigTestBase extends TestCase {
   /**
    * Get the Terrific Twig extension.
    *
-   * @return \Namics\Terrific\Twig\Extension\TerrificExtension
+   * @return \Namics\Terrific\Twig\TwigExtension\TerrificExtension
    *   The Terrific Twig extension.
    */
   protected function getTwigExtension(): TerrificExtension {

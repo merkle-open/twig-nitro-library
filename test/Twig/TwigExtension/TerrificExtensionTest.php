@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Namics\Test\Terrific\Twig\Extension;
+namespace Namics\Test\Terrific\Twig\TwigExtension;
 
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
 use Namics\Test\Terrific\Twig\TwigTestBase;
@@ -11,7 +11,7 @@ use Namics\Test\Terrific\Twig\TwigTestBase;
  * Class TerrificExtensionTest.
  *
  * @package Namics\Test\Terrific\Twig\Extension
- * @coversDefaultClass \Namics\Terrific\Twig\Extension\TerrificExtension
+ * @coversDefaultClass \Namics\Terrific\Twig\TwigExtension\TerrificExtension
  */
 class TerrificExtensionTest extends TwigTestBase {
 
