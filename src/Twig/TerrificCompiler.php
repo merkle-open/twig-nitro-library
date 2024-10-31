@@ -6,7 +6,7 @@ namespace Namics\Terrific\Twig;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\Data\VariableNameAndArrayKeysPair;
-use Namics\Terrific\Twig\Extension\TerrificExtension;
+use Namics\Terrific\Twig\TwigExtension\TerrificExtension;
 use Namics\Terrific\Twig\Utility\ExpressionHandler;
 use Twig\Compiler;
 use Twig\Error\Error;

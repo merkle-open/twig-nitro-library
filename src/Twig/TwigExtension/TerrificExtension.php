@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Namics\Terrific\Twig\Extension;
+namespace Namics\Terrific\Twig\TwigExtension;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
