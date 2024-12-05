@@ -7,6 +7,7 @@ namespace Namics\Test\Terrific\Twig;
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\TwigExtension\TerrificExtension;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Twig\TokenParser\PlaceholderTokenParser;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -46,4 +47,13 @@ abstract class TwigTestBase extends TestCase {
     return new ComponentTokenParser($this->getContextProviderMock());
   }
 
+  /**
+   * Get the placeholder token parser.
+   *
+   * @return \Namics\Terrific\Twig\TokenParser\PlaceholderTokenParser
+   *   The placeholder token parser.
+   */
+  protected function getPlaceholderTokenParser(): PlaceholderTokenParser {
+    return new PlaceholderTokenParser();
+  }
 }

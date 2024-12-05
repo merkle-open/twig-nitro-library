@@ -6,6 +6,7 @@ namespace Namics\Terrific\Twig\TwigExtension;
 
 use Namics\Terrific\Provider\ContextProviderInterface;
 use Namics\Terrific\Twig\TokenParser\ComponentTokenParser;
+use Namics\Terrific\Twig\TokenParser\PlaceholderTokenParser;
 use Twig\Extension\AbstractExtension;
 
 /**
@@ -58,6 +59,7 @@ final class TerrificExtension extends AbstractExtension {
   public function getTokenParsers(): array {
     return [
       new ComponentTokenParser($this->ctxProvider),
+      new PlaceholderTokenParser(),
     ];
   }
 
